@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+@import './tokens.css';
+@import './textbook.css';
+
+/* ---------- Textbook content page: title top-left, content centered below ---------- */
+.slidev-layout.textbook {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-auto-rows: unset;
+  align-content: stretch;
+  row-gap: 26px;
+}
+.slidev-layout.textbook.has-note { grid-template-columns: minmax(0, 1fr) 330px; column-gap: 56px; }
+.slidev-layout.textbook.near { grid-template-rows: minmax(0, 1fr); }
+.slidev-layout.textbook.near .tb-note { grid-row: 1 / span 30; }
+.tb-head { grid-column: 1 / -1; }
+.tb-head > h1, .tb-figure > h1, .tb-title > h1 {
+  font-family: var(--tb-serif); font-size: 54px !important; font-weight: 700; line-height: 1.25; margin: 0;
+}
+.tb-main {
+  grid-column: 1; min-height: 0;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px;
+}
+.tb-main > *, .tb-group > * { max-width: 100%; margin: 0; }
+.tb-main > p, .tb-main > ul, .tb-main > ol, .tb-group > p, .tb-group > ul { font-size: 35px; line-height: 1.6; }
+.tb-main ul, .tb-group ul { display: grid; gap: 12px; padding-left: 32px; }
+.tb-main li::marker, .tb-group li::marker { color: var(--tb-teal); }
+.tb-main code, .tb-group code, .col-text code, .cmp-v code, .step-text code, .fig-take code {
+  font-family: var(--tb-mono); background: var(--tb-code); padding: 0 8px; font-size: 0.86em;
+}
+.tb-main pre code, .tb-group pre code { background: none; padding: 0; font-size: inherit; }
+.tb-main > .slidev-code-wrapper, .tb-group > .slidev-code-wrapper { min-width: 900px; }
+.slidev-layout .slidev-code-wrapper { margin: 0; }
+.tb-main .slidev-code .line.highlighted { background: var(--accent-soft); }
+.tb-main .slidev-code .line.dishonored, .tb-main .slidev-code .slidev-code-dishonored { opacity: 0.32; }
+
+/* ---------- Figure: optional takeaway under the picture ---------- */
+.fig-body { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.fig-body > * { max-width: 100%; margin: 0; }
+.fig-body > p { font-size: 35px; line-height: 1.6; }
+.fig-take { width: 100%; box-sizing: border-box; }
+
+/* ---------- Quiz: five options ---------- */
+.qz-opts.five .qz-opt:last-child { grid-column: 1 / -1; }
+.qz-opt { min-width: 620px; }
+
+/* ---------- Cards and compare rows that reveal on click ---------- */
+.col-card.off, .cmp-k.off, .cmp-v.off, .step.off { opacity: 0.18; }
+
+/* ---------- Terminal: larger variant for break screens ---------- */
+.term { width: 1400px; max-width: 100%; box-sizing: border-box; }
+.term-body { min-height: 0; }
+.term.big .term-body { font-size: 40px; padding: 30px 36px; }
+
+/* ---------- Dockerfile line -> image layer ---------- */
+.lyr { grid-template-columns: 1fr 1fr; width: 1640px; max-width: 100%; }
+.lyr-image { background: var(--tb-outer); border: 2px solid #1a1a1a; padding: 16px 18px 18px; }
+.lyr-name { font-size: 24px; margin-bottom: 14px; font-family: var(--tb-mono); }
+.lyr-stack { display: flex; flex-direction: column-reverse; gap: 10px; }
+.lyr-layer {
+  display: flex; justify-content: space-between; align-items: center; height: 56px; padding: 0 18px;
+  background: var(--tb-svc); border: 2px solid #1a1a1a; font-family: var(--tb-mono); font-size: 22px;
+  transition: opacity 0.35s, background-color 0.35s;
+}
+.lyr-layer.base { background: var(--tb-green); }
+.lyr-layer.off { opacity: 0; }
+.lyr-layer.cur { outline: 4px solid var(--tb-teal); outline-offset: 2px; }
+.lyr-size { color: #1a1a1a; font-size: 20px; }
+
+/* ---------- Deflist inside a centered main area ---------- */
+.tb-main .deflist { width: 1400px; }
+
+/* ---------- Big mono command on statement slides ---------- */
+.st-body code { font-family: var(--tb-mono); background: var(--tb-code); padding: 0 10px; font-size: 0.85em; }
+
+/* The default theme fades the paragraph right after a title; keep it readable. */
+.slidev-layout h1 + p { opacity: 1; margin-top: 0; }
+
+/* Two terminals side by side */
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; width: 1760px; }
+.pair .term { width: auto; }
+
+/* Break screen */
+.break-note { font-size: 28px; color: var(--tb-mut); margin: 0; }
+.tb-figure .count { margin-top: 8px; }
+
+/* Pin the textbook rows so the note column never pushes content under the title. */
+.slidev-layout.textbook > .tb-head { grid-row: 1; }
+.slidev-layout.textbook > .tb-main { grid-row: 2; }
+.slidev-layout.textbook > .tb-note { grid-row: 2; align-self: start; }
+.slidev-layout.textbook.near > .tb-main,
+.slidev-layout.textbook.near > .tb-note { grid-row: 1; }
+.slidev-layout.textbook.near > .tb-note { align-self: center; }
+.tb-note p, .tb-note-text { line-height: 1.65; }
+
+/* Steps: slightly larger code and text */
+
+/* Syntax colors for Terminal, diff, annotated command and layer diagram */
+.t-sheb, .t-eq, .t-cmt { color: var(--neutral-500); }
+.t-dir { color: var(--accent); font-weight: 500; }
+.t-opt, .t-key { color: var(--warning-text); }
+.t-val { color: var(--info-text); }
+.t-cmd { color: var(--ink); font-weight: 500; }
+.t-arg { color: var(--ink); }
+
+/* ---------- Larger body text ---------- */
+.tb-main > p, .tb-main > ul, .tb-main > ol,
+.tb-group > p, .tb-group > ul, .fig-body > p { font-size: 40px; }
+.tb-note { font-size: 30px; }
+.tb-note-label { font-size: 20px; }
+.deflist > div { grid-template-columns: 270px 1fr; font-size: 38px; }
+.deflist b { font-size: 35px; }
+.slidev-layout pre.slidev-code, .slidev-layout .slidev-code { font-size: 31px !important; }
+.diff, .cd-code { font-size: 30px; }
+.tb-obj ol li { font-size: 40px; }
+.tb-obj ol li code, .sec-body ul { font-size: 35px; }
+.cmp > div { font-size: 34px; }
+.cmp-k { font-size: 26px !important; }
+.cmp-v code { font-size: 30px; }
+.col-text { font-size: 33px; line-height: 1.55; color: var(--tb-ink); }
+.col-text code { font-size: 29px; }
+.tb-cols .col-card { max-width: 520px; }
+.fig-take { font-size: 35px; }
+.step-title { font-size: 38px; }
+.step-code { font-size: 26px; }
+.step-text { font-size: 30px; color: var(--tb-mut); }
+.def-body p { font-size: 40px; }
+.def-body code { font-size: 35px; }
+.qz-opt, .qz-why p { font-size: 35px; }
+.qz-opt code, .qz-why code { font-size: 31px; }
+.tb-ref table { font-size: 32px; }
+.tb-ref td code { font-size: 29px; }
+.tile-desc { font-size: 26px; }
+.tile-desc code { font-size: 24px; }
+.end-body li { font-size: 32px; }
+.end-body li code { font-size: 30px; }
+.ann-lab span { font-size: 28px; }
+.slidev-layout .st-body p { font-size: 36px; }
+.break-note { font-size: 32px; }
+.tb-group .step-code { font-size: 24px; padding: 6px 12px; white-space: nowrap; }
+.def-ex p { font-size: 33px !important; }
+.def-ex p code { font-size: 29px; }
+.def-ex-label { font-size: 18px; }
+.tb-steps .steps-row { width: 1700px; max-width: 1760px; }
+
+/* ---------- Focus: one item at a time, list on the left ---------- */
+.slidev-layout.tb-focus { display: flex; flex-direction: column; gap: 22px; padding: 104px 80px 96px !important; }
+.slidev-layout.tb-focus > h1 { font-family: var(--tb-serif); font-size: 54px !important; font-weight: 700; line-height: 1.25; margin: 0; }
+.fc { flex: 1; min-height: 0; display: grid; grid-template-columns: 440px minmax(0, 1fr); column-gap: 80px; align-items: center; }
+.fc-index { list-style: none; margin: 0; padding: 0; display: grid; }
+.fc-index li { display: flex; align-items: baseline; gap: 20px; padding: 20px 0 20px 22px; border-top: 1.5px solid var(--tb-rule); border-left: 5px solid transparent; color: var(--neutral-400); font-size: 30px; line-height: 1.35; transition: color 0.3s, border-color 0.3s; }
+.fc-index li:last-child { border-bottom: 1.5px solid var(--tb-rule); }
+.fc-index li.done { color: var(--tb-mut); }
+.fc-index li.on { color: var(--tb-ink); font-weight: 600; border-left-color: var(--tb-teal); }
+.fc-n { font-family: var(--tb-serif); font-weight: 700; font-size: 30px; color: inherit; min-width: 44px; }
+.fc-index li.on .fc-n { color: var(--tb-teal); }
+.fc-main { display: flex; flex-direction: column; gap: 26px; border-left: 3px solid var(--tb-ink); padding: 12px 0 12px 64px; }
+.fc-label { font-size: 22px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tb-teal); }
+.fc-title { font-family: var(--tb-serif); font-size: 76px; font-weight: 700; line-height: 1.15; color: var(--tb-ink); }
+.slidev-layout.tb-focus .fc-code { align-self: flex-start; font-family: var(--tb-mono); font-size: 36px; background: var(--tb-code); border: 1.5px solid var(--tb-rule); padding: 10px 20px; }
+.fc-text { font-size: 40px; line-height: 1.6; color: var(--tb-ink); max-width: 1080px; }
+.fc-text code { font-family: var(--tb-mono); background: var(--tb-code); padding: 0 8px; font-size: 0.86em; }
+.fc-swap-enter-active, .fc-swap-leave-active { transition: opacity 0.25s, transform 0.25s; }
+.fc-swap-enter-from { opacity: 0; transform: translateY(12px); }
+.fc-swap-leave-to { opacity: 0; }
+
+/* ---------- Step diagrams (components/Stepper.vue and Dg*.vue) ---------- */
+.sd { max-width: 100%; display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
+.sd > svg, svg.dg { width: 100%; height: auto; max-height: 640px; overflow: visible; }
+.tb-figure svg text { font-family: var(--font-sans); font-size: 24px; fill: #1a1a1a; }
+.tb-figure svg text.m { font-family: var(--font-mono); }
+.tb-figure svg text.b { font-weight: 600; }
+.tb-figure svg text.t { font-size: 30px; }
+.tb-figure svg text.mut { fill: var(--ink-muted); }
+.tb-figure svg .node { fill: #e7e7e7; stroke: #1a1a1a; stroke-width: 2; }
+.tb-figure svg .outer { fill: #aeacac; stroke: #1a1a1a; stroke-width: 2; }
+.tb-figure svg .svc { fill: #adf0c7; stroke: #1a1a1a; stroke-width: 2; }
+.tb-figure svg .bar { fill: #6eea9e; stroke: #1a1a1a; stroke-width: 2; }
+.tb-figure svg .plain { fill: #ffffff; stroke: #1a1a1a; stroke-width: 2; }
+.tb-figure svg .idle { fill: none; stroke: #333333; stroke-width: 2; stroke-dasharray: 10 8; }
+.tb-figure svg .ln { fill: none; stroke: #333333; stroke-width: 2; }
+.tb-figure svg .hl { stroke: var(--accent); stroke-width: 5; }
+.tb-figure svg .f { transition: opacity 0.45s; }
+.tb-figure svg .off { opacity: 0; }
+.sd-foot { display: flex; justify-content: space-between; align-items: baseline; gap: 32px; }
+.sd-cap { margin: 0 !important; font-size: 34px !important; line-height: 1.5 !important; color: var(--ink-muted); min-height: 1.5em; }
+.sd-count { font-size: 20px; color: var(--ink-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Long config lines: smaller code so nothing runs past the frame */
+.slidev-layout .code-sm pre.slidev-code, .slidev-layout .code-sm .slidev-code { font-size: 19px !important; }
+
+/* Reference tables: centered in the space below the title */
+.slidev-layout.tb-ref .ref-grid { flex: 1; align-content: center; row-gap: 28px; }
+.slidev-layout.tb-ref th { font-size: 20px !important; padding: 12px 18px !important; }
+.slidev-layout.tb-ref td { padding: 14px 18px !important; line-height: 1.45; }
+.slidev-layout.tb-ref .ref-grid > p { grid-column: 1 / -1; margin: 0; font-size: 30px; line-height: 1.6; color: var(--ink-muted); }
+.slidev-layout.tb-ref .ref-grid > p code { font-family: var(--font-mono); background: var(--surface-sub); padding: 0 8px; font-size: 0.86em; }
+.slidev-layout .code-md pre.slidev-code, .slidev-layout .code-md .slidev-code { font-size: 26px !important; }
+.slidev-layout .code-wide pre.slidev-code, .slidev-layout .code-wide .slidev-code { font-size: 22px !important; }
+.code-wide { width: 100%; }

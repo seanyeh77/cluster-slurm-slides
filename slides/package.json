@@ -1,0 +1,17 @@
+{
+  "name": "cluster-slurm-slides",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/gen-commands.mjs && slidev --open",
+    "build": "node scripts/gen-commands.mjs && slidev build",
+    "export": "slidev export",
+    "commands": "node scripts/gen-commands.mjs",
+    "tokens": "node scripts/sync-tokens.mjs"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^53.0.0",
+    "@slidev/theme-default": "^0.25.0",
+    "vue": "^3.5.43"
+  }
+}
