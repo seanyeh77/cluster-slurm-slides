@@ -5,16 +5,18 @@ defineProps({ captions: Array })
 const X = (h) => 170 + h * 140
 const Y = (r) => r * 92
 const rows = ['node01', 'node02', 'node03', 'node04']
+// Time axis sits just below the job boxes, which end at y = 362.
+const AX = 368
 </script>
 
 <template>
   <Stepper :steps="4" :captions="captions" :width="1308" v-slot="{ s }">
-    <svg viewBox="-4 -4 1308 432" role="img" aria-label="Backfill scheduling">
+    <svg viewBox="-4 -4 1308 418" role="img" aria-label="Backfill scheduling">
       <text v-for="(r, i) in rows" :key="r" x="0" :y="Y(i) + 48" class="m">{{ r }}</text>
-      <path :d="`M170 0V${Y(4) - 12}H${X(8)}`" class="ln" />
+      <path :d="`M170 0V${AX}H${X(8)}`" class="ln" />
       <g v-for="h in [0, 1, 2, 3, 4, 5, 6, 7, 8]" :key="h">
-        <path :d="`M${X(h)} ${Y(4) - 12}V${Y(4) - 2}`" class="ln" />
-        <text :x="X(h)" :y="Y(4) + 24" text-anchor="middle">{{ h }}h</text>
+        <path :d="`M${X(h)} ${AX}V${AX + 10}`" class="ln" />
+        <text :x="X(h)" :y="AX + 40" text-anchor="middle">{{ h }}h</text>
       </g>
 
       <rect :x="X(0)" :y="Y(0) + 6" :width="X(3) - X(0)" height="172" class="svc" />
