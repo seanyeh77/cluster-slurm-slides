@@ -10,8 +10,8 @@ const AX = 368
 </script>
 
 <template>
-  <Stepper :steps="4" :captions="captions" :width="1308" v-slot="{ s }">
-    <svg viewBox="-4 -4 1308 418" role="img" aria-label="Backfill scheduling">
+  <Stepper :steps="4" :captions="captions" :width="1324" v-slot="{ s }">
+    <svg viewBox="-4 -4 1324 418" role="img" aria-label="Backfill scheduling">
       <text v-for="(r, i) in rows" :key="r" x="0" :y="Y(i) + 48" class="m">{{ r }}</text>
       <path :d="`M170 0V${AX}H${X(8)}`" class="ln" />
       <g v-for="h in [0, 1, 2, 3, 4, 5, 6, 7, 8]" :key="h">

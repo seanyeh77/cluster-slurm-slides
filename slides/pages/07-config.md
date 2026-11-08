@@ -187,15 +187,6 @@ items:
 # 依上下游順序啟動 daemon
 
 ---
-layout: statement
-chapter: Ch 7 · Example Configuration
----
-
-# 常見錯誤：sinfo timeout
-
-slurm.conf 啟用 accounting 時，slurmctld 啟動後要先向 slurmdbd 註冊取得 ClusterID。slurmdbd 未執行時，slurmctld 雖然顯示 running，卻不回應任何請求。
-
----
 layout: textbook
 chapter: Ch 7 · Example Configuration
 ltag: Terminal

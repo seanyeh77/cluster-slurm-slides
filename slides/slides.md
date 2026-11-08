@@ -57,9 +57,5 @@ src: ./pages/09-production.md
 ---
 
 ---
-src: ./pages/10-troubleshooting.md
----
-
----
 src: ./pages/11-summary.md
 ---

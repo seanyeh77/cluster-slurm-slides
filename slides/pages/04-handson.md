@@ -244,60 +244,16 @@ clicks: 1
 ---
 layout: quiz
 chapter: Ch 4 · Submit Your First Job
-question: Q2．steps.sh 的 allocation 為 2 台 node。若把 srun hostname 改成 ./a.out，沒有加 srun，程式會在哪裡執行？
+question: Q2．把 steps.sh 第 8 行的 srun hostname 改成 hostname，這一行會輸出幾行？
 clicks: 1
 answer: 1
 options:
-  - 2 台 node 各執行 4 次
-  - 只在 batch host 上執行一次
-  - 在送出 job 的 login node 上執行
+  - 8 行：2 台 node 各輸出 4 行
+  - 1 行：只在 batch host 執行
+  - 0 行：沒有 srun 就不會執行
 ---
 
-沒有 srun 的指令和第 7 行的 hostname 一樣，只在 batch host 執行。下一張說明這個常見錯誤。
-
----
-layout: statement
-chapter: Ch 4 · Submit Your First Job
----
-
-# 常見錯誤：script 中沒有以 srun 執行程式
-
-在 script 中直接執行 `./a.out`，程式只會在 batch host 上執行，另一台 node 整段時間都閒置。要在所有分配到的 node 上執行，必須透過 `srun`。
-
----
-layout: textbook
-chapter: Ch 4 · Submit Your First Job
-ltag: Terminal
-clicks: 1
----
-
-# 常見錯誤：srun 要求超過 allocation
-
-<TerminalTyping :keep="1" :cmds="[
-  { c: 'srun -n 16 hostname', o: 'srun: error: Unable to create step for job 44: More processors requested than permitted' },
-]" />
-
-::note::
-
-<Note :notes="[
-  '',
-  'allocation 只有 8 個 task。srun 只能在已分配的資源中切分，不能向外多要。',
-]" />
-
----
-layout: compare
-chapter: Ch 4 · Submit Your First Job
-left: 超過 allocation
-right: 資源被其他 step 佔用
-reveal: true
-clicks: 3
-rows:
-  - [例子, '<code>srun -n 16</code> 或 <code>srun -N 3</code>', '以 <code>srun ... &amp;</code> 同時執行多個 step']
-  - [結果, step 直接建立失敗, 新的 step 等前面的 step 釋放資源後才開始]
-  - [訊息, '<code>More processors requested than permitted</code>', '<code>step creation temporarily disabled</code>']
----
-
-# srun 要求的資源比 sbatch 多
+沒有 srun 的指令和第 7 行一樣，只在 batch host 執行一次，另一台 node 完全沒有用到。要在所有分配到的 node 上執行，必須透過 srun。
 
 ---
 layout: textbook
@@ -317,19 +273,10 @@ wait
 ::note::
 
 <Note :notes="[
-  '',
+  './a.out：gcc 編譯時未指定檔名所產生的執行檔，./ 表示目前目錄。',
   '每個 srun 都寫明只使用多少資源，否則第一個 step 會用滿整塊 allocation。',
   'wait：等待所有背景執行的 step 結束。',
 ]" />
-
----
-layout: statement
-chapter: Ch 4 · Submit Your First Job
----
-
-# 不同版本的 Slurm，step 的預設行為不同
-
-例如 `--cpus-per-task` 是否從 `sbatch` 繼承到 `srun`，22.05 與 23.11 的行為就不同。實作時以 cluster 上的版本為準：`sinfo --version`。
 
 ---
 layout: textbook
@@ -356,15 +303,6 @@ sbatch --dependency=afterok:$SLURM_JOB_ID train.sh
   '前處理以 srun 執行。',
   'afterok:&amp;lt;jobid&amp;gt;：指定的 job 成功結束後，train.sh 才能開始。',
 ]" />
-
----
-layout: statement
-chapter: Ch 4 · Submit Your First Job
----
-
-# script 送出自己時，必須有停止條件
-
-否則 job 會不斷自我複製、塞滿 queue。新 job 預設繼承送出當下的環境變數（`--export=ALL`），父 job 的 `SLURM_*` 變數可能影響子 job；有些 cluster 也會限制每人可排隊的 job 數量（`MaxSubmitJobs`）。
 
 ---
 layout: textbook

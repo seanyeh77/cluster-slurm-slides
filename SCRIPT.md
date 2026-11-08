@@ -306,52 +306,27 @@
 
 - 44.batch 是 script 本身，44.0 與 44.1 是兩個 step，CPU 數與上一張圖一致。
 
-## 44. Q2．steps.sh 的 allocation 為 2 台 node。若把 srun hostname 改成 ./a.out，沒有加 srun，程式會在哪裡執行？
+## 44. Q2．把 steps.sh 第 8 行的 srun hostname 改成 hostname，這一行會輸出幾行？
 
 講稿：
 
-- 舉手表決後再公布答案，下一張說明這是最常見的錯誤。
+- 舉手表決後再公布答案。可以對照 steps.sh 的輸出：第 1 行就是沒有 srun 的 hostname。
+- 沒有 srun 的程式只會用到一台 node；程式「有跑」，所以不容易察覺。
 
-## 45. 常見錯誤：script 中沒有以 srun 執行程式
-
-講稿：
-
-- 程式「有跑」但只用到一台 node，所以不容易察覺。
-
-## 46. 常見錯誤：srun 要求超過 allocation
+## 45. 在同一個 allocation 中同時執行多個 step
 
 筆記：
 
-- （1）allocation 只有 8 個 task。srun 只能在已分配的資源中切分，不能向外多要。
-
-講稿：
-
-- 先看真實的錯誤訊息，再說明原因：srun 不能超過 allocation。
-
-## 47. srun 要求的資源比 sbatch 多
-
-講稿：
-
-- 兩種情況的訊息不同：一個是失敗，一個是等待。
-
-## 48. 在同一個 allocation 中同時執行多個 step
-
-筆記：
-
+- （進入投影片）./a.out：gcc 編譯時未指定檔名所產生的執行檔，./ 表示目前目錄。
 - （1）每個 srun 都寫明只使用多少資源，否則第一個 step 會用滿整塊 allocation。
 - （2）wait：等待所有背景執行的 step 結束。
 
 講稿：
 
+- 先說明 ./a.out：用 gcc 編譯 C 程式、沒有以 -o 指定檔名時，執行檔預設叫 a.out；./ 表示執行目前目錄裡的這個檔案。換成任何自己的程式都一樣。
 - --exact 讓每個 step 只拿自己要求的資源，最後的 wait 等所有背景 step 結束。
 
-## 49. 不同版本的 Slurm，step 的預設行為不同
-
-講稿：
-
-- 遇到行為不同時，先用 sinfo --version 確認版本。
-
-## 50. 以 dependency 串接 job
+## 46. 以 dependency 串接 job
 
 筆記：
 
@@ -363,13 +338,7 @@
 
 - script 中的 sbatch 和 srun 意義完全不同：sbatch 送出新的 job，重新排隊。
 
-## 51. script 送出自己時，必須有停止條件
-
-講稿：
-
-- 自我送出要有停止條件，例如檢查某個檔案是否存在。
-
-## 52. 以 salloc 取得互動式資源
+## 47. 以 salloc 取得互動式資源
 
 筆記：
 
@@ -381,7 +350,7 @@
 
 - 取得資源後，shell 仍在 login node，hostname 會顯示 slurm-head。
 
-## 53. 進入分配到的 node 後歸還資源
+## 48. 進入分配到的 node 後歸還資源
 
 筆記：
 
@@ -395,31 +364,31 @@
 - ssh 進入 node 適合查看狀態或除錯；啟動平行程式仍建議用 srun，資源才會記錄在 sacct。
 - 要 exit 兩次：先離開 SSH，再離開 salloc。
 
-## 54. salloc 的流程
+## 49. salloc 的流程
 
 講稿：
 
 - 五個步驟對照前兩張的終端機畫面。
 
-## 55. 常見錯誤：在 salloc 的 shell 中直接執行程式
+## 50. 常見錯誤：在 salloc 的 shell 中直接執行程式
 
 講稿：
 
 - 這和 Q2 是同一類錯誤：沒有 srun 就不會用到分配到的 node。
 
-## 56. sbatch、salloc 與 srun
+## 51. sbatch、salloc 與 srun
 
 講稿：
 
 - 三者都會要資源，差別在執行方式與何時釋放資源。
 
-## 57. 指令總表
+## 52. 指令總表
 
 講稿：
 
 - 指令清單頁面也有完整列表。
 
-## 58. 練習
+## 53. 練習
 
 講稿：
 
@@ -427,45 +396,45 @@
 
 # Ch 5 · Prerequisites
 
-## 59. Prerequisites
+## 54. Prerequisites
 
-## 60. Slurm 的元件
+## 55. Slurm 的元件
 
 講稿：
 
 - 從這裡開始換成管理員的角度。三個步驟對應三個 daemon 與它們的通訊方向。
 
-## 61. 安裝時會用到的 Linux 名詞
+## 56. 安裝時會用到的 Linux 名詞
 
 講稿：
 
 - cgroup 在 slurm.conf 的 ProctrackType 與 TaskPlugin 會用到；tmpfs 在 TmpDisk 的設定會用到。
 
-## 62. 所有節點的時鐘、UID 與 GID 必須一致
+## 57. 所有節點的時鐘、UID 與 GID 必須一致
 
 講稿：
 
 - 時間同步與帳號集中管理各有獨立的文件，這裡只說明為什麼需要。
 
-## 63. UID 不一致時的情形
+## 58. UID 不一致時的情形
 
 講稿：
 
 - 共用檔案系統只看 UID 數字，不看帳號名稱。
 
-## 64. 集中管理帳號的兩種方式
+## 59. 集中管理帳號的兩種方式
 
 講稿：
 
 - 教學環境可以用 NIS，正式環境用 LDAP。
 
-## 65. 安裝 Slurm 前，先讓所有節點共用 home 目錄
+## 60. 安裝 Slurm 前，先讓所有節點共用 home 目錄
 
 講稿：
 
 - job 的輸出檔寫在送出 job 時的工作目錄，所以 home 必須共用。
 
-## 66. 修正 hostname 解析
+## 61. 修正 hostname 解析
 
 筆記：
 
@@ -475,15 +444,15 @@
 
 講稿：
 
-- 這是安裝時最常踩到的問題之一，Troubleshooting 的 not responding 也會提到。
+- 這是安裝時最常踩到的問題之一。
 
-## 67. Authentication 的三項要求
+## 62. Authentication 的三項要求
 
 講稿：
 
 - 範例使用 auth/slurm，不需要另外安裝 MUNGE。
 
-## 68. 產生 auth/slurm 的金鑰
+## 63. 產生 auth/slurm 的金鑰
 
 筆記：
 
@@ -493,9 +462,9 @@
 
 講稿：
 
-- 金鑰權限過寬時，slurmctld 會拒絕啟動，見 Troubleshooting。
+- 金鑰權限過寬時，slurmctld 會拒絕啟動。
 
-## 69. 建立 slurm 帳號
+## 64. 建立 slurm 帳號
 
 筆記：
 
@@ -507,25 +476,25 @@
 
 - UID 選在 1000 以下，所有節點都用同一個數字。
 
-## 70. useradd 的參數
+## 65. useradd 的參數
 
 講稿：
 
 - 逐一點出參數：系統帳號、固定 UID、不建立家目錄、禁止登入。
 
-## 71. 叢集中的兩類帳號
+## 66. 叢集中的兩類帳號
 
 講稿：
 
 - 兩類帳號放在不同地方，原因在下一張。
 
-## 72. 服務帳號不放進 LDAP
+## 67. 服務帳號不放進 LDAP
 
 講稿：
 
 - 三個原因都與「daemon 開機就要啟動」有關。
 
-## 73. 編譯用的開發套件
+## 68. 編譯用的開發套件
 
 講稿：
 
@@ -533,9 +502,9 @@
 
 # Ch 6 · Installation
 
-## 74. Installation
+## 69. Installation
 
-## 75. 從原始碼打包 Debian 套件
+## 70. 從原始碼打包 Debian 套件
 
 筆記：
 
@@ -549,13 +518,13 @@
 - 指令中的 <<...>> 是要自行替換的部分：下載網址、解壓縮後的目錄名稱。
 - debuild 需要一段時間，完成後 .deb 在 /opt。
 
-## 76. 各角色需要的套件
+## 71. 各角色需要的套件
 
 講稿：
 
 - 每個角色只裝需要的套件。範例叢集的 slurm-head 身兼 controller、DBD 與 compute，所以要裝 4 個。
 
-## 77. 在 Compute Node 安裝套件
+## 72. 在 Compute Node 安裝套件
 
 筆記：
 
@@ -566,7 +535,7 @@
 
 - Compute Node 需要 slurm-smd、client 與 slurmd 三個套件。
 
-## 78. 確認 plugin 已編入
+## 73. 確認 plugin 已編入
 
 筆記：
 
@@ -577,13 +546,13 @@
 
 - 缺少 plugin 代表打包時沒有對應的開發套件。
 
-## 79. 以 root 建立目錄並交給 slurm
+## 74. 以 root 建立目錄並交給 slurm
 
 講稿：
 
 - 每個目錄都由 root 建立，再交給 slurm。
 
-## 80. 讓 /run/slurmdbd 在開機時自動建立
+## 75. 讓 /run/slurmdbd 在開機時自動建立
 
 筆記：
 
@@ -594,7 +563,7 @@
 
 - /run 是 tmpfs，重開機會清空，所以用 tmpfiles 設定。
 
-## 81. 在 DBD 節點安裝 MariaDB
+## 76. 在 DBD 節點安裝 MariaDB
 
 筆記：
 
@@ -605,7 +574,7 @@
 
 - MariaDB 只裝在 DBD 節點。
 
-## 82. 建立 accounting database
+## 77. 建立 accounting database
 
 筆記：
 
@@ -620,15 +589,15 @@
 
 # Ch 7 · Example Configuration
 
-## 83. Example Configuration
+## 78. Example Configuration
 
-## 84. 一份最小可用的設定
+## 79. 一份最小可用的設定
 
 講稿：
 
 - 接下來三張是同一份 slurm.conf，所有節點內容完全相同。
 
-## 85. slurm.conf：基本設定
+## 80. slurm.conf：基本設定
 
 筆記：
 
@@ -643,7 +612,7 @@
 
 - 逐段點出設定：名稱與 controller、認證、通知信、process 追蹤、各種路徑。
 
-## 86. slurm.conf：排程與記帳
+## 81. slurm.conf：排程與記帳
 
 筆記：
 
@@ -655,13 +624,13 @@
 
 - 這一段決定排程方式，以及記帳資料送到哪裡。
 
-## 87. slurm.conf：節點與 partition
+## 82. slurm.conf：節點與 partition
 
 講稿：
 
 - NodeName=DEFAULT 設定共同的硬體規格，再逐一列出每台 node 的 IP。
 
-## 88. slurmdbd.conf
+## 83. slurmdbd.conf
 
 筆記：
 
@@ -674,7 +643,7 @@
 
 - slurmdbd.conf 只在 DBD 節點。DbdPort 與 slurm.conf 的 AccountingStoragePort 要一致。
 
-## 89. 保護 slurmdbd.conf
+## 84. 保護 slurmdbd.conf
 
 筆記：
 
@@ -685,19 +654,13 @@
 
 - 權限錯誤是 slurmdbd 啟動失敗的常見原因。
 
-## 90. 依上下游順序啟動 daemon
+## 85. 依上下游順序啟動 daemon
 
 講稿：
 
 - 依上下游順序啟動：slurmdbd、slurmctld、slurmd。
 
-## 91. 常見錯誤：sinfo timeout
-
-講稿：
-
-- slurmctld 顯示 running 卻不回應，是因為它在等 slurmdbd 給 ClusterID。
-
-## 92. 驗證叢集
+## 86. 驗證叢集
 
 筆記：
 
@@ -711,21 +674,21 @@
 
 # Ch 8 · Configuration and Operations
 
-## 93. Configuration and Operations
+## 87. Configuration and Operations
 
-## 94. slurm.conf 的重要參數
+## 88. slurm.conf 的重要參數
 
 講稿：
 
 - 只列出最常調整的參數，完整說明見 slurm.conf man page。
 
-## 95. TreeWidth 的樹狀轉發
+## 89. TreeWidth 的樹狀轉發
 
 講稿：
 
 - 每多一層，涵蓋的節點數乘以 16。
 
-## 96. 取得節點的硬體規格
+## 90. 取得節點的硬體規格
 
 筆記：
 
@@ -735,19 +698,19 @@
 
 - 在虛擬機上 CPU 拓撲常與實體機不同，一定要以 slurmd -C 的結果為準。
 
-## 97. /tmp 為 tmpfs 時，不要以它的大小填 TmpDisk
+## 91. /tmp 為 tmpfs 時，不要以它的大小填 TmpDisk
 
 講稿：
 
 - /tmp 是 tmpfs 時，暫存空間其實是記憶體。
 
-## 98. 修改設定後的生效方式
+## 92. 修改設定後的生效方式
 
 講稿：
 
 - 不確定時，重啟最保險。
 
-## 99. 查看節點狀態並恢復上線
+## 93. 查看節點狀態並恢復上線
 
 筆記：
 
@@ -760,28 +723,28 @@
 
 # Ch 9 · Production Deployment
 
-## 100. Production Deployment
+## 94. Production Deployment
 
-## 101. 正式環境的三層架構
+## 95. 正式環境的三層架構
 
 講稿：
 
 - 依步驟逐層建立：Access、Control、Compute。
 
-## 102. 備援相關名詞
+## 96. 備援相關名詞
 
 講稿：
 
 - 兩個名詞是 slurmctld 備援的基礎。
 
-## 103. slurmctld 的 active-standby 備援
+## 97. slurmctld 的 active-standby 備援
 
 講稿：
 
 - 回應 Ch 1 的 Q1：這就是 High Availability 的做法。
 - 強調切換期間執行中的 job 不受影響。
 
-## 104. 設定 slurmctld 備援
+## 98. 設定 slurmctld 備援
 
 筆記：
 
@@ -794,7 +757,7 @@
 
 - 所有節點的 slurm.conf 都要列出兩台 controller，而且順序相同。
 
-## 105. 測試切換
+## 99. 測試切換
 
 筆記：
 
@@ -806,43 +769,43 @@
 
 - 停止 primary 後要等超過 SlurmctldTimeout，backup 才會接手。
 
-## 106. StateSaveLocation 不能成為新的單點故障
+## 100. StateSaveLocation 不能成為新的單點故障
 
 講稿：
 
 - 共用狀態目錄本身也要有備援，否則只是把單點故障換了位置。
 
-## 107. slurmdbd 的備援
+## 101. slurmdbd 的備援
 
 講稿：
 
 - 兩台 slurmdbd 寫入同一個 MariaDB。資料庫不在本機時，帳號要允許兩台 head node 連線。
 
-## 108. slurmdbd 可以短暫停止，但不能停太久
+## 102. slurmdbd 可以短暫停止，但不能停太久
 
 講稿：
 
 - MariaDB 的複寫或叢集超出這份內容的範圍。
 
-## 109. Partition 規劃：16 台 CPU node 加 4 台 GPU node
+## 103. Partition 規劃：16 台 CPU node 加 4 台 GPU node
 
 講稿：
 
 - debug 的 node 同時屬於 cpu，不會閒置。
 
-## 110. 設定 Partition
+## 104. 設定 Partition
 
 講稿：
 
 - GPU 還需要 gres.conf，詳見 GRES 文件。
 
-## 111. Partition 參數
+## 105. Partition 參數
 
 講稿：
 
 - DefaultTime 沒設時，backfill 幾乎無法發揮作用。
 
-## 112. 限制每位使用者在 Login Node 上的資源
+## 106. 限制每位使用者在 Login Node 上的資源
 
 筆記：
 
@@ -856,42 +819,21 @@
 
 - 寫入後執行 sudo systemctl daemon-reload，使用者重新登入後生效；root 的 user-0.slice 要另外解除限制。
 
-## 113. 以 VIP 讓多台 Login Node 共用一個位址
+## 107. 以 VIP 讓多台 Login Node 共用一個位址
 
 講稿：
 
 - VRRP 預設使用 multicast，許多雲端與虛擬化環境會擋掉，需要改用 unicast。
 
-# Ch 10 · Troubleshooting
-
-## 114. Troubleshooting
-
-## 115. 先查看 log
-
-筆記：
-
-- （1）slurmctld 的 log；compute node 改看 slurmd.log。
-- （2）log 檔尚未建立時，改看 journal 最新的紀錄。
-
-講稿：
-
-- 遇到問題先看 log，大多數錯誤訊息都會直接說明原因。
-
-## 116. 常見錯誤與修正
-
-講稿：
-
-- 逐一點出錯誤訊息與修正方式，都是安裝過程中實際遇到的錯誤。
-
 # Summary
 
-## 117. 重點整理
+## 108. 重點整理
 
 講稿：
 
 - 用這張回顧兩部分的重點。
 
-## 118. Further Reading
+## 109. Further Reading
 
 講稿：
 
