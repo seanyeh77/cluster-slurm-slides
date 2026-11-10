@@ -58,7 +58,7 @@
 .slidev-layout.quote{height:100%;display:grid}
 .slidev-layout.quote h1+p{margin-top:.5rem}
 .slidev-layout.section h1{font-size:3.75rem;font-weight:500;line-height:5rem}
-:root{--tb-ink:var(--ink);--tb-mut:var(--ink-muted);--tb-teal:var(--accent);--tb-rule:var(--line);--tb-code:var(--surface-sub);--tb-green:#6eea9e;--tb-svc:#adf0c7;--tb-node:#e7e7e7;--tb-outer:#aeacac;--tb-serif:var(--font-sans);--tb-sans:var(--font-sans);--tb-mono:var(--font-mono)}
+:root,body,#app{--tb-ink:var(--ink);--tb-mut:var(--ink-muted);--tb-teal:var(--accent);--tb-rule:var(--line);--tb-code:var(--surface-sub);--tb-green:#6eea9e;--tb-svc:#adf0c7;--tb-node:#e7e7e7;--tb-outer:#aeacac;--tb-serif:var(--font-sans);--tb-sans:var(--font-sans);--tb-mono:var(--font-mono)}
 .slidev-layout{font-family:var(--tb-sans);color:var(--tb-ink);background:var(--bg)}
 .slidev-layout code,.slidev-layout pre{font-family:var(--tb-mono)}
 .tb-progress{z-index:20;pointer-events:none;background:var(--neutral-100);height:7px;position:absolute;top:0;left:0;right:0}

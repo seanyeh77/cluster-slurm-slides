@@ -1,7 +1,7 @@
 <script setup>
 import { useSlideContext } from '@slidev/client'
 
-defineProps({ chapter: String, near: Boolean, left: String, right: String, rows: Array, reveal: Boolean })
+defineProps({ chapter: String, near: Boolean, corner: { type: String, default: '項目' }, left: String, right: String, rows: Array, reveal: Boolean })
 const { $clicks } = useSlideContext()
 </script>
 
@@ -13,13 +13,18 @@ const { $clicks } = useSlideContext()
       <div class="tb-group">
         <div v-if="near" class="tb-title"><slot /></div>
         <div class="cmp">
-          <div class="cmp-h" />
+          <div class="cmp-h corner">{{ corner }}</div>
           <div class="cmp-h a">{{ left }}</div>
           <div class="cmp-h b">{{ right }}</div>
           <template v-for="(r, i) in rows" :key="i">
-            <div class="cmp-k" :class="{ off: reveal && $clicks <= i }">{{ r[0] }}</div>
-            <div class="cmp-v" :class="{ off: reveal && $clicks <= i }" v-html="r[1]" />
-            <div class="cmp-v" :class="{ off: reveal && $clicks <= i }" v-html="r[2]" />
+            <div class="cmp-k">{{ r[0] }}</div>
+            <template v-if="r.length === 2">
+              <div class="cmp-v same" :class="{ off: reveal && $clicks <= i }" v-html="r[1]" />
+            </template>
+            <template v-else>
+              <div class="cmp-v" :class="{ off: reveal && $clicks <= i }" v-html="r[1]" />
+              <div class="cmp-v" :class="{ off: reveal && $clicks <= i }" v-html="r[2]" />
+            </template>
           </template>
         </div>
       </div>

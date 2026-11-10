@@ -18,7 +18,7 @@ chapter: Ch 4 · Submit Your First Job
 
 # 範例叢集：slurm-head 與 slurm-compute
 
-2 台 node，每台 4 個 CPU；`slurm-head` 兼任 login、controller 與 compute。本章的指令整理在 `seanyeh77.github.io/cluster-slurm-slides/commands.html`。
+指令清單：`seanyeh77.github.io/cluster-slurm-slides/commands.html`
 
 ---
 layout: textbook
@@ -140,7 +140,7 @@ chapter: Ch 4 · Submit Your First Job
 
 # `--time` 估得越準，越有機會提早執行
 
-scheduler 的 backfill 會利用 `--time`，把短的 job 排進大 job 等待的空檔。時間設得越短，越有機會提早被排到。
+backfill 依 `--time` 把短 job 排進大 job 等待的空檔。
 
 ---
 layout: textbook
@@ -244,7 +244,7 @@ clicks: 1
 ---
 layout: quiz
 chapter: Ch 4 · Submit Your First Job
-question: Q2．把 steps.sh 第 8 行的 srun hostname 改成 hostname，這一行會輸出幾行？
+question: Q2．第 8 行改成不加 srun 的 hostname，會輸出幾行？
 clicks: 1
 answer: 1
 options:
@@ -386,7 +386,7 @@ chapter: Ch 4 · Submit Your First Job
 
 # 常見錯誤：在 salloc 的 shell 中直接執行程式
 
-在 `salloc` 的 shell 裡直接執行 `./a.out`，程式在 login node 上執行，分配到的 compute node 完全閒置。拿到 shell 後先以 `hostname` 確認所在的主機，再以 `srun` 執行。
+salloc 的 shell 在 login node 上，以 `srun` 才會在分配到的 node 執行。
 
 ---
 layout: reference

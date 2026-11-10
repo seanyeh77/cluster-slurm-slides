@@ -18,4 +18,4 @@ chapter: Overview
 
 # 前半部使用 Cluster，後半部建置 Cluster
 
-Ch 1 到 Ch 4 從使用者的角度認識 cluster 並送出 job；Ch 5 到 Ch 9 從管理員的角度安裝與設定 Slurm。兩部分使用同一座範例叢集：`slurm-head` 與 `slurm-compute`。
+兩部分使用同一座範例叢集：`slurm-head` 與 `slurm-compute`。

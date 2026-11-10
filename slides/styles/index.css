@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
 @import './tokens.css';
+@import './tokens-pinned.css';
 @import './textbook.css';
 
 /* ---------- Textbook content page: title top-left, content centered below ---------- */
@@ -199,3 +200,54 @@
 .slidev-layout .code-md pre.slidev-code, .slidev-layout .code-md .slidev-code { font-size: 26px !important; }
 .slidev-layout .code-wide pre.slidev-code, .slidev-layout .code-wide .slidev-code { font-size: 22px !important; }
 .code-wide { width: 100%; }
+
+/* ======================================================================
+   Rules from the teaching-materials-style update
+   ====================================================================== */
+
+/* Smallest on-slide labels are at least 22 px */
+.tb-note-label, .def-kind, .def-ex-label, .diff-file, .end-lab, .tile-label, .sd-count, .ltag { font-size: 22px !important; }
+.slidev-layout.tb-ref th { font-size: 22px !important; }
+
+/* No opacity dimming for "not chosen" or "not yet": use the muted ink color */
+.qz-opt.dim { opacity: 1 !important; color: var(--ink-muted); }
+.qz-opt.dim .qz-k { color: var(--ink-muted); border-color: var(--line); }
+
+/* Line highlight: one continuous band across the block, other lines muted */
+.slidev-layout .slidev-code .slidev-code-dishonored,
+.slidev-layout .slidev-code .line.dishonored { opacity: 1 !important; }
+.slidev-layout .slidev-code .slidev-code-dishonored span,
+.slidev-layout .slidev-code .line.dishonored span { color: var(--ink-muted) !important; }
+.slidev-layout .slidev-code:has(.slidev-code-dishonored) .slidev-code-highlighted,
+.slidev-layout .slidev-code .line.highlighted {
+  display: inline-block; width: calc(100% + 64px); margin: 0 -32px; padding: 0 32px;
+  background: var(--accent-soft); box-shadow: none;
+}
+
+/* Compare tables: corner header names the first column; revealed rows keep
+   their label, background and grid lines, only the values appear on click */
+.cmp > .cmp-k.off, .cmp > .cmp-v.off { opacity: 1 !important; }
+.cmp > .cmp-v.off > * , .cmp > .cmp-v.off { color: transparent; }
+.cmp > .cmp-v.off code { background: transparent; color: transparent; }
+.cmp-h.corner { font-family: var(--font-sans); font-size: 24px !important; font-weight: 600; color: var(--ink-muted); display: flex; align-items: center; }
+
+/* Statement: heading plus at most one muted sentence, directly on the page,
+   left-aligned at the content edge, vertically centered; no bar or box */
+.slidev-layout .st-body { border-left: 0 !important; padding-left: 0 !important; margin-right: 0 !important; }
+.slidev-layout .st-body h1 { white-space: nowrap; }
+
+/* Quiz question fits on one line */
+.slidev-layout .qz-q { white-space: nowrap; font-size: 46px !important; }
+
+/* Step diagrams are shown at 1x: the SVG keeps its viewBox width */
+.sd > svg { width: var(--svg-w); max-width: none; max-height: none; align-self: center; }
+svg.dg { max-height: none !important; }
+.cmp-v.same { grid-column: span 2; text-align: left; }
+
+/* Focus index: items never wrap (column sized to its content); inactive
+   items use the muted ink color so they keep 4.5:1 contrast */
+.fc { grid-template-columns: max-content minmax(0, 1fr); }
+.fc-index li { white-space: nowrap; color: var(--ink-muted); padding-right: 24px; }
+
+/* Code inside table headers keeps the 22 px minimum */
+.slidev-layout.tb-ref th code { font-size: 22px; }

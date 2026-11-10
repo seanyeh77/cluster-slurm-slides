@@ -17,7 +17,7 @@ chapter: Ch 1 · What is a Cluster
 
 # Cluster 是以網路連接、統一管理的多台電腦
 
-多台獨立的電腦透過網路連接，再以軟體統一管理。對使用者而言，整座 cluster 如同一台更大的電腦。
+對使用者而言，整座 cluster 如同一台更大的電腦。
 
 ---
 layout: definition
@@ -82,7 +82,7 @@ items:
 ---
 layout: quiz
 chapter: Ch 1 · What is a Cluster
-question: Q1．Slurm 的 controller 故障時，由另一台 backup controller 接手排程。這屬於哪一種 Cluster 的做法？
+question: Q1．controller 故障時由 backup 接手排程，屬於哪一種 Cluster？
 clicks: 1
 answer: 1
 options:

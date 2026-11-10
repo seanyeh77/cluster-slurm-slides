@@ -63,7 +63,7 @@ chapter: Ch 8 · Configuration and Operations
 
 # /tmp 為 tmpfs 時，不要以它的大小填 TmpDisk
 
-tmpfs 實際上是記憶體，會與 `RealMemory` 重複計算，job 寫入 /tmp 的檔案可能導致記憶體不足。需要暫存空間時，把 `TmpFS` 指向實體磁碟上的目錄，例如 `/var/tmp`，再填入 `TmpDisk`。
+tmpfs 是記憶體，會與 `RealMemory` 重複計算；改把 `TmpFS` 指向實體磁碟。
 
 ---
 layout: reference

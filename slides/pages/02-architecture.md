@@ -70,7 +70,7 @@ chapter: Ch 2 · Cluster Architecture
 
 # 角色是功能上的區分，不一定是實體機器的區分
 
-小型 cluster 常把好幾個角色放在同一台機器上，例如 Login Node 與 Head Node 合併，或讓 `slurmctld` 與 `slurmdbd` 在同一台執行。範例叢集的 `slurm-head` 同時是 login、controller 與 compute。
+範例叢集的 `slurm-head` 同時是 login、controller 與 compute。
 
 ---
 layout: statement
@@ -79,7 +79,7 @@ chapter: Ch 2 · Cluster Architecture
 
 # 計算一律透過 scheduler 送到 Compute Node
 
-Login Node 是所有使用者共用的入口。在 Login Node 上直接執行大量運算，會讓其他使用者連登入都變慢。
+在共用的 Login Node 上執行大量運算，會拖慢所有使用者。
 
 ---
 layout: focus

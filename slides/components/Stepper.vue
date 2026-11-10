@@ -16,7 +16,7 @@ const caption = computed(() => props.captions[s.value - 1] ?? '')
 </script>
 
 <template>
-  <div class="sd" :style="{ width: Math.max(width, 1400) + 'px' }">
+  <div class="sd" :style="{ width: Math.max(width, 1400) + 'px', '--svg-w': width + 'px' }">
     <slot :s="s" />
     <div v-if="steps > 1 || captions.length" class="sd-foot">
       <p class="sd-cap">{{ caption }}</p>

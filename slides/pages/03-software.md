@@ -85,7 +85,7 @@ chapter: Ch 3 · Cluster Software Stack
 
 # home 放在 NFS，scratch 放在平行檔案系統
 
-兩者不是二選一。home 小檔案多、需要個人 quota，適合 NFS；scratch 存放計算時大量的中間資料，重視速度，通常不備份，適合 BeeGFS 或 Lustre。
+home 需要個人 quota；scratch 重視速度，通常不備份。
 
 ---
 layout: focus
@@ -168,4 +168,4 @@ chapter: Ch 3 · Cluster Software Stack
 
 # 以 Spack 建置軟體，以 module load 切換環境
 
-不同的使用者需要不同版本的編譯器、MPI 與函式庫。Spack 從原始碼建置並讓多個版本共存，再搭配 Environment Modules 或 Lmod，讓使用者以 `module load` 切換環境。
+Spack 讓編譯器與函式庫的多個版本共存，Lmod 讓使用者切換。

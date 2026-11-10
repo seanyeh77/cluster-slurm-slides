@@ -109,7 +109,7 @@ chapter: Ch 9 · Production Deployment
 
 # StateSaveLocation 不能成為新的單點故障
 
-StateSaveLocation 放在一台普通的 NFS server 上時，NFS server 停機，兩台 controller 都讀不到狀態。正式環境使用本身有備援的儲存，例如雙機的 NFS 或平行檔案系統。
+兩台 controller 共用的狀態目錄，要放在本身有備援的儲存上。
 
 ---
 layout: compare
@@ -132,7 +132,7 @@ chapter: Ch 9 · Production Deployment
 
 # slurmdbd 可以短暫停止，但不能停太久
 
-兩台 slurmdbd 都停止時，slurmctld 仍可排程，記帳紀錄先暫存在 slurmctld，恢復後再補送；暫存的筆數上限為 `MaxDBDMsgs`，超過後新的紀錄會被丟棄。MariaDB 本身仍是單點故障，正式環境會再設定複寫或 Galera Cluster。
+記帳紀錄暫存在 slurmctld，超過 `MaxDBDMsgs` 筆就會被丟棄。
 
 ---
 layout: reference
@@ -221,4 +221,4 @@ chapter: Ch 9 · Production Deployment
 
 # 以 VIP 讓多台 Login Node 共用一個位址
 
-keepalived 以 VRRP 協定決定 VIP 掛在哪一台：priority 最高且仍在運作的那台成為 MASTER，故障時 VIP 在數秒內轉到 BACKUP。VRRP 只做備援、不分流；兩台的 SSH host key 要一致，home 目錄要共用。
+keepalived 以 VRRP 決定由哪一台持有 VIP，故障時在數秒內轉移。

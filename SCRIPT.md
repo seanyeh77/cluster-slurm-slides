@@ -26,6 +26,7 @@
 講稿：
 
 - 強調兩部分用同一座叢集，後半部的設定檔就是前半部 job 跑起來的原因。
+- Ch 1 到 Ch 4 從使用者的角度認識 cluster 並送出 job；Ch 5 到 Ch 9 從管理員的角度安裝與設定 Slurm。
 
 # Ch 1 · What is a Cluster
 
@@ -36,6 +37,7 @@
 講稿：
 
 - 先建立「一台更大的電腦」的直覺，再拆開看裡面有什麼。
+- 多台獨立的電腦透過網路連接，再以軟體統一管理。
 
 ## 6. Node
 
@@ -62,7 +64,7 @@
 
 - 三種 cluster 目的不同，後面主要談 HPC Cluster，但 Slurm 自己也會用到 HA 的做法。
 
-## 10. Q1．Slurm 的 controller 故障時，由另一台 backup controller 接手排程。這屬於哪一種 Cluster 的做法？
+## 10. Q1．controller 故障時由 backup 接手排程，屬於哪一種 Cluster？
 
 講稿：
 
@@ -97,12 +99,14 @@
 講稿：
 
 - 範例叢集只有 2 台，所以 slurm-head 身兼多職。
+- 小型 cluster 常把好幾個角色放在同一台機器上，例如 Login Node 與 Head Node 合併，或讓 slurmctld 與 slurmdbd 在同一台執行。
 
 ## 16. 計算一律透過 scheduler 送到 Compute Node
 
 講稿：
 
 - Login Node 是共用的入口，這一點在 Ch 9 會用 systemd 的資源限制實際落實。
+- Login Node 是所有使用者共用的入口，在上面直接執行大量運算，會讓其他使用者連登入都變慢。
 
 ## 17. Cluster 中的三種網路
 
@@ -150,6 +154,7 @@
 講稿：
 
 - 很多 cluster 兩者都有，使用者要知道自己的資料該放哪裡。
+- home 小檔案多，適合 NFS；scratch 存放計算時大量的中間資料，適合 BeeGFS 或 Lustre。兩者不是二選一。
 
 ## 25. Workload Manager 的職責
 
@@ -187,6 +192,7 @@
 講稿：
 
 - Spack 與 Lmod 有獨立的文件，這裡只說明它們解決的問題。
+- 不同的使用者需要不同版本的編譯器、MPI 與函式庫。Spack 從原始碼建置並讓多個版本共存，Environment Modules 或 Lmod 讓使用者以 module load 切換。
 
 # Ch 4 · Submit Your First Job
 
@@ -198,6 +204,7 @@
 
 - 請大家打開指令清單，之後的指令都可以從那裡複製。
 - 在自己的電腦上沒有 cluster 時，跳過操作，只看輸出。
+- 範例叢集有 2 台 node，每台 4 個 CPU；slurm-head 兼任 login、controller 與 compute。
 
 ## 33. 查看 partition 與 node
 
@@ -260,6 +267,7 @@
 講稿：
 
 - 連結 Ch 3 的 Backfill 圖：短 job 才排得進空檔。
+- 時間設得越短，越有機會被 backfill 提早排到。
 
 ## 39. Job Allocation 與 Job Step
 
@@ -306,7 +314,7 @@
 
 - 44.batch 是 script 本身，44.0 與 44.1 是兩個 step，CPU 數與上一張圖一致。
 
-## 44. Q2．把 steps.sh 第 8 行的 srun hostname 改成 hostname，這一行會輸出幾行？
+## 44. Q2．第 8 行改成不加 srun 的 hostname，會輸出幾行？
 
 講稿：
 
@@ -375,6 +383,7 @@
 講稿：
 
 - 這和 Q2 是同一類錯誤：沒有 srun 就不會用到分配到的 node。
+- 在 salloc 的 shell 裡直接執行 ./a.out，程式在 login node 上執行，分配到的 compute node 完全閒置。拿到 shell 後先以 hostname 確認所在的主機。
 
 ## 51. sbatch、salloc 與 srun
 
@@ -415,6 +424,7 @@
 講稿：
 
 - 時間同步與帳號集中管理各有獨立的文件，這裡只說明為什麼需要。
+- 時間差太多，Slurm 的 credential 會被判為過期；UID 不一致，使用者在共用檔案系統上會存取不到自己的檔案。
 
 ## 58. UID 不一致時的情形
 
@@ -433,6 +443,7 @@
 講稿：
 
 - job 的輸出檔寫在送出 job 時的工作目錄，所以 home 必須共用。
+- job 的輸入資料與輸出檔（例如 slurm-42.out）都在送出 job 時的工作目錄。小型叢集使用 NFS；需要高吞吐量的 scratch 時，再加上 BeeGFS。
 
 ## 61. 修正 hostname 解析
 
@@ -591,11 +602,12 @@
 
 ## 78. Example Configuration
 
-## 79. 一份最小可用的設定
+## 79. 範例設定對應 2 台機器的叢集
 
 講稿：
 
 - 接下來三張是同一份 slurm.conf，所有節點內容完全相同。
+- slurm-compute 為 compute node。
 
 ## 80. slurm.conf：基本設定
 
@@ -703,6 +715,7 @@
 講稿：
 
 - /tmp 是 tmpfs 時，暫存空間其實是記憶體。
+- job 寫入 /tmp 的檔案可能導致記憶體不足。需要暫存空間時，把 TmpFS 指向實體磁碟上的目錄，例如 /var/tmp，再填入 TmpDisk。
 
 ## 92. 修改設定後的生效方式
 
@@ -774,6 +787,7 @@
 講稿：
 
 - 共用狀態目錄本身也要有備援，否則只是把單點故障換了位置。
+- StateSaveLocation 放在一台普通的 NFS server 上時，NFS server 停機，兩台 controller 都讀不到狀態。正式環境使用雙機的 NFS 或平行檔案系統。
 
 ## 101. slurmdbd 的備援
 
@@ -786,6 +800,7 @@
 講稿：
 
 - MariaDB 的複寫或叢集超出這份內容的範圍。
+- 兩台 slurmdbd 都停止時，slurmctld 仍可排程，記帳紀錄恢復後再補送。MariaDB 本身仍是單點故障，正式環境會再設定複寫或 Galera Cluster。
 
 ## 103. Partition 規劃：16 台 CPU node 加 4 台 GPU node
 
@@ -824,6 +839,7 @@
 講稿：
 
 - VRRP 預設使用 multicast，許多雲端與虛擬化環境會擋掉，需要改用 unicast。
+- priority 最高且仍在運作的那台成為 MASTER；VRRP 只做備援、不分流。兩台的 SSH host key 要一致，home 目錄要共用。
 
 # Summary
 

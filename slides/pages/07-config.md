@@ -15,9 +15,9 @@ layout: statement
 chapter: Ch 7 · Example Configuration
 ---
 
-# 一份最小可用的設定
+# 範例設定對應 2 台機器的叢集
 
-對應範例叢集：`slurm-head` 兼任 controller、DBD node 與 compute node，`slurm-compute` 為 compute node，認證使用 `auth/slurm`。
+`slurm-head` 兼任 controller、DBD 與 compute，認證使用 `auth/slurm`。
 
 ---
 layout: textbook

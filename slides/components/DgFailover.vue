@@ -7,10 +7,10 @@ defineProps({ captions: Array })
 <template>
   <Stepper :steps="3" :captions="captions" :width="1408" v-slot="{ s }">
     <svg viewBox="-4 -4 1408 360" role="img" aria-label="slurmctld failover">
-      <g :style="{ opacity: s >= 2 ? 0.35 : 1, transition: 'opacity .45s' }">
+      <g>
         <rect x="0" y="0" width="520" height="150" class="node" />
         <text x="24" y="40" class="b m">head1</text>
-        <rect x="24" y="64" width="472" height="62" class="svc" />
+        <rect x="24" y="64" width="472" height="62" :class="s >= 2 ? 'plain' : 'svc'" />
         <text x="260" y="104" text-anchor="middle" class="m">{{ s >= 2 ? 'slurmctld DOWN' : 'slurmctld Primary' }}</text>
         <line x1="260" y1="150" x2="260" y2="246" class="ln" marker-end="url(#ah-fo)" />
         <text x="276" y="206">Write state</text>

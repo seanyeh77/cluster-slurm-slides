@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/gen-commands.mjs && slidev --open",
-    "build": "node scripts/gen-commands.mjs && slidev build",
+    "dev": "node scripts/pin-tokens.mjs && node scripts/gen-commands.mjs && slidev --open",
+    "build": "node scripts/pin-tokens.mjs && node scripts/gen-commands.mjs && slidev build",
     "export": "slidev export",
     "commands": "node scripts/gen-commands.mjs",
-    "tokens": "node scripts/sync-tokens.mjs"
+    "tokens": "node scripts/sync-tokens.mjs && node scripts/pin-tokens.mjs"
   },
   "devDependencies": {
     "@slidev/cli": "^53.0.0",

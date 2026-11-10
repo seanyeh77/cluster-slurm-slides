@@ -45,7 +45,7 @@ chapter: Ch 5 · Prerequisites
 
 # 所有節點的時鐘、UID 與 GID 必須一致
 
-時間差太多，Slurm 的 credential 會被判為過期；UID 不一致，使用者在共用檔案系統上會存取不到自己的檔案。
+時間差太多 credential 會過期；UID 不一致會存取不到自己的檔案。
 
 ---
 layout: figure
@@ -78,7 +78,7 @@ chapter: Ch 5 · Prerequisites
 
 # 安裝 Slurm 前，先讓所有節點共用 home 目錄
 
-job 的輸入資料與輸出檔（例如 `slurm-42.out`）都在送出 job 時的工作目錄，compute node 必須在相同路徑看到相同檔案。小型叢集使用 NFS；需要高吞吐量的 scratch 時，再加上 BeeGFS。
+job 的輸出檔寫在送出 job 時的工作目錄，compute node 必須看得到。
 
 ---
 layout: textbook

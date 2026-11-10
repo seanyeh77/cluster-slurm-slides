@@ -10,7 +10,9 @@ and reports, in SVG user units:
   line-on-text  a line crosses a text label
   text-overlap  two text labels overlap
   text-out-box  a label sticks out of the box it sits in
+  text-near-box a label touches or comes within 8 units of another box
   clipped       something lies outside the viewBox, so its edge would be cut
+  scaled        the diagram is drawn smaller than 1x on the 1920 x 1080 slide
 It also saves a full-resolution screenshot of the diagram at every step to
 out-dir (default: diagram-shots) for a visual check. Exit code 1 when any
 issue is found.
@@ -108,6 +110,12 @@ INSPECT = r'''() => {
       const cx = (t.x0 + t.x1) / 2, cy = (t.y0 + t.y1) / 2;
       const host = rects.filter((r) => cx > r.x0 && cx < r.x1 && cy > r.y0 && cy < r.y1)
         .sort((a, b) => (a.x1 - a.x0) * (a.y1 - a.y0) - (b.x1 - b.x0) * (b.y1 - b.y0))[0];
+      // A label must keep clear of boxes it does not sit in.
+      rects.forEach((r) => {
+        if (r === host || (cx > r.x0 && cx < r.x1 && cy > r.y0 && cy < r.y1)) return;
+        const gap = 8;
+        if (t.x0 < r.x1 + gap && t.x1 > r.x0 - gap && t.y0 < r.y1 && t.y1 > r.y0) issues.push(`text-near-box "${t.t}" within ${gap} of box (${fmt(r.x0)},${fmt(r.y0)})`);
+      });
       if (host && (t.x0 < host.x0 + 2 || t.x1 > host.x1 - 2 || t.y0 < host.y0 || t.y1 > host.y1)) issues.push(`text-out-box "${t.t}"`);
       if (t.x0 < vb.x || t.y0 < vb.y || t.x1 > vb.x + vb.width || t.y1 > vb.y + vb.height) issues.push(`clipped text "${t.t}"`);
     });
@@ -116,6 +124,9 @@ INSPECT = r'''() => {
       if (r.x0 - sw < vb.x || r.y0 - sw < vb.y || r.x1 + sw > vb.x + vb.width || r.y1 + sw > vb.y + vb.height) issues.push(`clipped box (${fmt(r.x0)},${fmt(r.y0)},${fmt(r.x1)},${fmt(r.y1)})`);
     });
     const b = svg.getBoundingClientRect();
+    // Step diagrams are shown at 1x so box text stays 24 px.
+    const scale = Math.min(b.width / vb.width, b.height / vb.height);
+    if (scale < 0.98) issues.push(`scaled to ${scale.toFixed(2)}x, below 1x`);
     out.push({ si, issues: [...new Set(issues)], box: [b.x, b.y, b.width, b.height] });
   });
   return out;
