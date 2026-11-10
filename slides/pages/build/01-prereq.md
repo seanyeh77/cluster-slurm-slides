@@ -1,7 +1,7 @@
 ---
 layout: section
-number: 5
-chapter: Ch 5 · Prerequisites
+number: 1
+chapter: Ch 1 · Prerequisites
 ---
 
 # Prerequisites
@@ -13,7 +13,7 @@ chapter: Ch 5 · Prerequisites
 
 ---
 layout: figure
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 clicks: 2
 ---
 
@@ -27,7 +27,7 @@ clicks: 2
 
 ---
 layout: textbook
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 clicks: 2
 ---
 
@@ -40,7 +40,7 @@ clicks: 2
 
 ---
 layout: statement
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 ---
 
 # 所有節點的時鐘、UID 與 GID 必須一致
@@ -49,7 +49,7 @@ chapter: Ch 5 · Prerequisites
 
 ---
 layout: figure
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 takeaway: 共用檔案系統只認 UID 的數字，UID 不同的 alice 在 node2 上會被當成別人。
 ---
 
@@ -59,7 +59,7 @@ takeaway: 共用檔案系統只認 UID 的數字，UID 不同的 alice 在 node2
 
 ---
 layout: compare
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 left: NIS
 right: LDAP
 reveal: true
@@ -73,7 +73,7 @@ rows:
 
 ---
 layout: statement
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 ---
 
 # 安裝 Slurm 前，先讓所有節點共用 home 目錄
@@ -82,7 +82,7 @@ job 的輸出檔寫在送出 job 時的工作目錄，compute node 必須看得�
 
 ---
 layout: textbook
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 ltag: /etc/hosts
 clicks: 2
 ---
@@ -105,7 +105,7 @@ clicks: 2
 
 ---
 layout: focus
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 numbered: true
 clicks: 2
 items:
@@ -124,7 +124,7 @@ items:
 
 ---
 layout: textbook
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 ltag: Terminal
 clicks: 3
 ---
@@ -148,7 +148,7 @@ clicks: 3
 
 ---
 layout: textbook
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 ltag: Terminal
 clicks: 3
 ---
@@ -172,7 +172,7 @@ clicks: 3
 
 ---
 layout: figure
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 clicks: 4
 ---
 
@@ -192,7 +192,7 @@ clicks: 4
 
 ---
 layout: compare
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 left: 真人使用者
 right: 服務帳號
 reveal: true
@@ -207,7 +207,7 @@ rows:
 
 ---
 layout: focus
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 clicks: 2
 items:
   - label: 原因 1
@@ -225,7 +225,7 @@ items:
 
 ---
 layout: reference
-chapter: Ch 5 · Prerequisites
+chapter: Ch 1 · Prerequisites
 ---
 
 # 編譯用的開發套件

@@ -32,9 +32,9 @@ jobs:
           cache-dependency-path: slides/package-lock.json
       - run: npm ci
       - run: node scripts/sync-tokens.mjs
-      - run: node scripts/pin-tokens.mjs
-      - run: node scripts/gen-commands.mjs
-      - run: npx slidev build --base /cluster-slurm-slides/ --out dist
+      - run: node scripts/build-all.mjs
+        env:
+          BASE: /cluster-slurm-slides/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: slides/dist

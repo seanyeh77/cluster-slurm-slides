@@ -1,7 +1,7 @@
 ---
 layout: section
-number: 9
-chapter: Ch 9 · Production Deployment
+number: 5
+chapter: Ch 5 · Production Deployment
 ---
 
 # Production Deployment
@@ -13,7 +13,7 @@ chapter: Ch 9 · Production Deployment
 
 ---
 layout: figure
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 clicks: 2
 ---
 
@@ -27,7 +27,7 @@ clicks: 2
 
 ---
 layout: textbook
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 clicks: 2
 ---
 
@@ -40,7 +40,7 @@ clicks: 2
 
 ---
 layout: figure
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 clicks: 2
 takeaway: 切換期間執行中的 job 不受影響，job 由 compute node 上的 slurmd 執行。
 ---
@@ -55,7 +55,7 @@ takeaway: 切換期間執行中的 job 不受影響，job 由 compute node 上�
 
 ---
 layout: textbook
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ltag: slurm.conf
 clicks: 3
 ---
@@ -80,7 +80,7 @@ StateSaveLocation=/shared/slurmctld
 
 ---
 layout: textbook
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ltag: Terminal
 clicks: 3
 ---
@@ -104,7 +104,7 @@ clicks: 3
 
 ---
 layout: statement
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ---
 
 # StateSaveLocation 不能成為新的單點故障
@@ -113,7 +113,7 @@ chapter: Ch 9 · Production Deployment
 
 ---
 layout: compare
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 left: slurm.conf
 right: slurmdbd.conf
 reveal: true
@@ -127,7 +127,7 @@ rows:
 
 ---
 layout: statement
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ---
 
 # slurmdbd 可以短暫停止，但不能停太久
@@ -136,7 +136,7 @@ chapter: Ch 9 · Production Deployment
 
 ---
 layout: reference
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ---
 
 # Partition 規劃：16 台 CPU node 加 4 台 GPU node
@@ -151,7 +151,7 @@ debug 的 MaxTime 短、`PriorityTier` 較高，排隊時間短；cpu01、cpu02 
 
 ---
 layout: figure
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ltag: slurm.conf
 takeaway: Gres=gpu:4 宣告每台 4 張 GPU，還需在 gres.conf 指定裝置檔；新增或修改 node 定義後，重啟 slurmctld 與所有 slurmd。
 ---
@@ -173,7 +173,7 @@ PartitionName=gpu Nodes=gpu[01-04] MaxTime=2-00:00:00 DefaultTime=01:00:00 State
 
 ---
 layout: reference
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ---
 
 # Partition 參數
@@ -189,7 +189,7 @@ chapter: Ch 9 · Production Deployment
 
 ---
 layout: textbook
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ltag: 50-login-limits.conf
 clicks: 4
 ---
@@ -216,7 +216,7 @@ TasksMax=512
 
 ---
 layout: statement
-chapter: Ch 9 · Production Deployment
+chapter: Ch 5 · Production Deployment
 ---
 
 # 以 VIP 讓多台 Login Node 共用一個位址

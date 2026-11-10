@@ -1,15 +1,15 @@
-// Build public/commands.html: every command typed on a Terminal slide,
-// grouped by chapter and slide, each with a copy button. Run before
-// `slidev build` so the page ships with the deck.
+// Build site/commands.html: every command typed on a Terminal slide of
+// intro.md, grouped by chapter and slide, each with a copy button.
+// scripts/build-all.mjs copies site/ to the root of dist/.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const order = [...readFileSync(join(root, 'slides.md'), 'utf8').matchAll(/src: \.\/pages\/(\S+)/g)].map((m) => m[1])
+const order = [...readFileSync(join(root, 'intro.md'), 'utf8').matchAll(/src: \.\/pages\/(\S+)/g)].map((m) => m[1])
 
 // Demo-only and error slides are left out. Only the hands-on chapter is
-// typed along with; the Slurm-building chapters are lecture only.
+// typed along with.
 const skip = (t) => /^常見錯誤/.test(t)
 const skipChapter = (c) => !/Submit Your First Job/.test(c)
 
@@ -71,7 +71,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Introduction to Cluster and Slurm 指令</title>
+<title>Introduction to Cluster 指令</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -104,7 +104,7 @@ const html = `<!DOCTYPE html>
 <body>
 <div class="bar"></div>
 <main>
-  <h1>Introduction to Cluster and Slurm 指令</h1>
+  <h1>Introduction to Cluster 指令</h1>
   <p class="lead">依投影片順序列出 Submit Your First Job 的指令，按右側的複製圖示後貼到 Terminal 執行。job script 的完整內容在最後。</p>
   <nav>${chapters.filter((c) => c.slides.length).map((c, i) => `<a href="#ch${i}">${esc(c.name)}</a>`).join('')}<a href="#files">檔案</a></nav>
 ${chapters.filter((c) => c.slides.length).map((c, i) => `
@@ -132,6 +132,6 @@ ${files.map(([n, c]) => fileBlock(n, c)).join('\n')}
 </html>
 `
 
-mkdirSync(join(root, 'public'), { recursive: true })
-writeFileSync(join(root, 'public', 'commands.html'), html)
+mkdirSync(join(root, 'site'), { recursive: true })
+writeFileSync(join(root, 'site', 'commands.html'), html)
 console.log(`commands.html: ${chapters.reduce((n, c) => n + c.slides.reduce((m, s) => m + s.cmds.length, 0), 0)} commands`)

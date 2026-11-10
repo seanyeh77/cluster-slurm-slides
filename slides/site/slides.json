@@ -1,0 +1,4 @@
+[
+  { "title": "Introduction to Cluster", "path": "intro/" },
+  { "title": "Building and Installing Slurm", "path": "build/" }
+]

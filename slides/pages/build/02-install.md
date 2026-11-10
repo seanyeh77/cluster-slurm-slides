@@ -1,7 +1,7 @@
 ---
 layout: section
-number: 6
-chapter: Ch 6 · Installation
+number: 2
+chapter: Ch 2 · Installation
 ---
 
 # Installation
@@ -13,7 +13,7 @@ chapter: Ch 6 · Installation
 
 ---
 layout: textbook
-chapter: Ch 6 · Installation
+chapter: Ch 2 · Installation
 ltag: Terminal
 clicks: 7
 ---
@@ -45,7 +45,7 @@ clicks: 7
 
 ---
 layout: reference
-chapter: Ch 6 · Installation
+chapter: Ch 2 · Installation
 ---
 
 # 各角色需要的套件
@@ -60,7 +60,7 @@ chapter: Ch 6 · Installation
 
 ---
 layout: textbook
-chapter: Ch 6 · Installation
+chapter: Ch 2 · Installation
 ltag: Terminal
 clicks: 3
 ---
@@ -84,7 +84,7 @@ clicks: 3
 
 ---
 layout: textbook
-chapter: Ch 6 · Installation
+chapter: Ch 2 · Installation
 ltag: Terminal
 clicks: 2
 ---
@@ -106,7 +106,7 @@ clicks: 2
 
 ---
 layout: reference
-chapter: Ch 6 · Installation
+chapter: Ch 2 · Installation
 ---
 
 # 以 root 建立目錄並交給 slurm
@@ -122,7 +122,7 @@ daemon 以 slurm 帳號執行，沒有權限在 `/var/spool`、`/var/log` 底下
 
 ---
 layout: textbook
-chapter: Ch 6 · Installation
+chapter: Ch 2 · Installation
 ltag: Terminal
 clicks: 2
 ---
@@ -144,7 +144,7 @@ clicks: 2
 
 ---
 layout: textbook
-chapter: Ch 6 · Installation
+chapter: Ch 2 · Installation
 ltag: Terminal
 clicks: 2
 ---
@@ -166,7 +166,7 @@ clicks: 2
 
 ---
 layout: textbook
-chapter: Ch 6 · Installation
+chapter: Ch 2 · Installation
 ltag: SQL
 clicks: 3
 ---

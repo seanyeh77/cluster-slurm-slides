@@ -1,7 +1,7 @@
 ---
 layout: section
-number: 7
-chapter: Ch 7 · Example Configuration
+number: 3
+chapter: Ch 3 · Example Configuration
 ---
 
 # Example Configuration
@@ -12,7 +12,7 @@ chapter: Ch 7 · Example Configuration
 
 ---
 layout: statement
-chapter: Ch 7 · Example Configuration
+chapter: Ch 3 · Example Configuration
 ---
 
 # 範例設定對應 2 台機器的叢集
@@ -21,7 +21,7 @@ chapter: Ch 7 · Example Configuration
 
 ---
 layout: textbook
-chapter: Ch 7 · Example Configuration
+chapter: Ch 3 · Example Configuration
 ltag: slurm.conf
 clicks: 5
 ---
@@ -63,7 +63,7 @@ SlurmdLogFile=/var/log/slurm/slurmd.log
 
 ---
 layout: textbook
-chapter: Ch 7 · Example Configuration
+chapter: Ch 3 · Example Configuration
 ltag: slurm.conf
 clicks: 2
 ---
@@ -91,7 +91,7 @@ JobAcctGatherType=jobacct_gather/linux
 
 ---
 layout: figure
-chapter: Ch 7 · Example Configuration
+chapter: Ch 3 · Example Configuration
 ltag: slurm.conf
 takeaway: 硬體欄位以各節點 sudo slurmd -C 的結果為準；debug 是包含所有節點的預設 partition。
 ---
@@ -113,7 +113,7 @@ PartitionName=debug Nodes=ALL Default=YES MaxTime=INFINITE State=UP
 
 ---
 layout: textbook
-chapter: Ch 7 · Example Configuration
+chapter: Ch 3 · Example Configuration
 ltag: slurmdbd.conf
 clicks: 3
 ---
@@ -147,7 +147,7 @@ StorageLoc=slurm_acct_db
 
 ---
 layout: textbook
-chapter: Ch 7 · Example Configuration
+chapter: Ch 3 · Example Configuration
 ltag: Terminal
 clicks: 2
 ---
@@ -169,7 +169,7 @@ clicks: 2
 
 ---
 layout: focus
-chapter: Ch 7 · Example Configuration
+chapter: Ch 3 · Example Configuration
 numbered: true
 clicks: 2
 items:
@@ -188,7 +188,7 @@ items:
 
 ---
 layout: textbook
-chapter: Ch 7 · Example Configuration
+chapter: Ch 3 · Example Configuration
 ltag: Terminal
 clicks: 3
 ---
@@ -207,5 +207,5 @@ clicks: 3
   '',
   '確認 controller 正常回應，輸出省略。',
   '列出節點狀態，State 為 idle 代表可接收 job，輸出省略。',
-  '送出測試 job。叢集可以運作後，即可使用 Ch 4 的指令。',
+  '送出測試 job。叢集可以運作後，即可使用 sinfo、srun、sbatch、salloc。',
 ]" />

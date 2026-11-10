@@ -91,4 +91,4 @@ options:
   - Load Balancing Cluster
 ---
 
-backup controller 的目的是在一台故障時由另一台接手，讓服務不中斷。Ch 9 Production Deployment 會說明它的運作方式與設定。
+backup controller 的目的是在一台故障時由另一台接手，讓服務不中斷。Building and Installing Slurm 的 Production Deployment 會說明它的運作方式。

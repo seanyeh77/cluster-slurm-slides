@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/pin-tokens.mjs && node scripts/gen-commands.mjs && slidev --open",
-    "build": "node scripts/pin-tokens.mjs && node scripts/gen-commands.mjs && slidev build",
-    "export": "slidev export",
+    "dev": "node scripts/pin-tokens.mjs && slidev intro.md --open",
+    "dev:build": "node scripts/pin-tokens.mjs && slidev build.md --open",
+    "build": "node scripts/build-all.mjs",
     "commands": "node scripts/gen-commands.mjs",
     "tokens": "node scripts/sync-tokens.mjs && node scripts/pin-tokens.mjs"
   },

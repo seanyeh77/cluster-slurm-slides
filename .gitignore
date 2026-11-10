@@ -1,4 +1,4 @@
 node_modules/
 slides/dist/
-slides/public/commands.html
+slides/site/commands.html
 .DS_Store

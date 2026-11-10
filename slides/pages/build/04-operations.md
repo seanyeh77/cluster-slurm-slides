@@ -1,7 +1,7 @@
 ---
 layout: section
-number: 8
-chapter: Ch 8 · Configuration and Operations
+number: 4
+chapter: Ch 4 · Configuration and Operations
 ---
 
 # Configuration and Operations
@@ -12,7 +12,7 @@ chapter: Ch 8 · Configuration and Operations
 
 ---
 layout: reference
-chapter: Ch 8 · Configuration and Operations
+chapter: Ch 4 · Configuration and Operations
 ---
 
 # slurm.conf 的重要參數
@@ -28,7 +28,7 @@ chapter: Ch 8 · Configuration and Operations
 
 ---
 layout: figure
-chapter: Ch 8 · Configuration and Operations
+chapter: Ch 4 · Configuration and Operations
 takeaway: 以預設的 TreeWidth=16 為例，3 次轉發就能涵蓋超過 4000 個節點。
 ---
 
@@ -38,7 +38,7 @@ takeaway: 以預設的 TreeWidth=16 為例，3 次轉發就能涵蓋超過 4000 
 
 ---
 layout: textbook
-chapter: Ch 8 · Configuration and Operations
+chapter: Ch 4 · Configuration and Operations
 ltag: Terminal
 clicks: 1
 ---
@@ -53,12 +53,12 @@ clicks: 1
 
 <Note :notes="[
   '',
-  '在每個 compute node 分別執行。... 省略了 CPU 拓撲欄位，完整內容與 Ch 7 的 NodeName=DEFAULT 相同。第一行可直接貼進 slurm.conf，UpTime 不屬於設定。',
+  '在每個 compute node 分別執行。... 省略了 CPU 拓撲欄位，完整內容與 Ch 3 的 NodeName=DEFAULT 相同。第一行可直接貼進 slurm.conf，UpTime 不屬於設定。',
 ]" />
 
 ---
 layout: statement
-chapter: Ch 8 · Configuration and Operations
+chapter: Ch 4 · Configuration and Operations
 ---
 
 # /tmp 為 tmpfs 時，不要以它的大小填 TmpDisk
@@ -67,7 +67,7 @@ tmpfs 是記憶體，會與 `RealMemory` 重複計算；改把 `TmpFS` 指向實
 
 ---
 layout: reference
-chapter: Ch 8 · Configuration and Operations
+chapter: Ch 4 · Configuration and Operations
 ---
 
 # 修改設定後的生效方式
@@ -83,7 +83,7 @@ chapter: Ch 8 · Configuration and Operations
 
 ---
 layout: textbook
-chapter: Ch 8 · Configuration and Operations
+chapter: Ch 4 · Configuration and Operations
 ltag: Terminal
 clicks: 2
 ---
