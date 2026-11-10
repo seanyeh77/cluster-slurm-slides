@@ -205,7 +205,7 @@ clicks: 3
 
 <Note :notes="[
   '',
-  '確認 controller 正常回應（輸出省略）。',
-  '列出節點狀態，State 為 idle 代表可接收 job（輸出省略）。',
+  '確認 controller 正常回應，輸出省略。',
+  '列出節點狀態，State 為 idle 代表可接收 job，輸出省略。',
   '送出測試 job。叢集可以運作後，即可使用 Ch 4 的指令。',
 ]" />

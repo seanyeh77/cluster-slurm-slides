@@ -17,13 +17,13 @@ const { $clicks } = useSlideContext()
           <div class="cmp-h a">{{ left }}</div>
           <div class="cmp-h b">{{ right }}</div>
           <template v-for="(r, i) in rows" :key="i">
-            <div class="cmp-k">{{ r[0] }}</div>
+            <div class="cmp-k" :class="{ z: i % 2 === 1 }">{{ r[0] }}</div>
             <template v-if="r.length === 2">
-              <div class="cmp-v same" :class="{ off: reveal && $clicks <= i }" v-html="r[1]" />
+              <div class="cmp-v same" :class="{ off: reveal && $clicks <= i, z: i % 2 === 1 }" v-html="r[1]" />
             </template>
             <template v-else>
-              <div class="cmp-v" :class="{ off: reveal && $clicks <= i }" v-html="r[1]" />
-              <div class="cmp-v" :class="{ off: reveal && $clicks <= i }" v-html="r[2]" />
+              <div class="cmp-v" :class="{ off: reveal && $clicks <= i, z: i % 2 === 1 }" v-html="r[1]" />
+              <div class="cmp-v" :class="{ off: reveal && $clicks <= i, z: i % 2 === 1 }" v-html="r[2]" />
             </template>
           </template>
         </div>

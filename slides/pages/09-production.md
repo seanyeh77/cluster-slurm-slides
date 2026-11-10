@@ -141,11 +141,11 @@ chapter: Ch 9 · Production Deployment
 
 # Partition 規劃：16 台 CPU node 加 4 台 GPU node
 
-| Partition | 用途 | Node | MaxTime | DefaultTime |
-| --- | --- | --- | --- | --- |
-| `debug` | 編譯後的快速測試與除錯 | cpu01、cpu02（2 台） | 30 分 | 10 分 |
-| `cpu` | 一般 CPU 計算，預設 partition | cpu01 到 cpu16（16 台） | 2 天 | 1 小時 |
-| `gpu` | 需要 GPU 的計算 | gpu01 到 gpu04（4 台） | 2 天 | 1 小時 |
+| Partition | 用途 | Node | Node 數 (台) | MaxTime (小時) | DefaultTime (分) |
+| --- | --- | --- | ---: | ---: | ---: |
+| `debug` | 快速測試與除錯 | cpu01、cpu02 | 2 | 0.5 | 10 |
+| `cpu` | 一般計算，預設 | cpu01 到 cpu16 | 16 | 48 | 60 |
+| `gpu` | 需要 GPU 的計算 | gpu01 到 gpu04 | 4 | 48 | 60 |
 
 debug 的 MaxTime 短、`PriorityTier` 較高，排隊時間短；cpu01、cpu02 同時屬於 debug 與 cpu，不會閒置。
 
@@ -182,7 +182,7 @@ chapter: Ch 9 · Production Deployment
 | --- | --- |
 | `MaxTime` | 單一 job 的最長執行時間，超過會被強制結束 |
 | `DefaultTime` | job 未指定 `--time` 時使用的時間；未設定時直接使用 MaxTime，backfill 就很難排進空檔 |
-| `MaxNodes` | 單一 job 最多可以使用的 node 數（台） |
+| `MaxNodes` | 單一 job 最多可以使用的 node 數，單位為台 |
 | `PriorityTier` | 數值越大越先排程，預設 1 |
 
 `MaxTime` 的格式為 `時:分:秒` 或 `天-時:分:秒`，例如 `00:30:00` 是 30 分、`2-00:00:00` 是 2 天。

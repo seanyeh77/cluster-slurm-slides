@@ -129,8 +129,8 @@ clicks: 3
 <Note :notes="[
   '',
   'sbatch：送出 job 後立即回到 shell，job 在背景排隊與執行。',
-  'squeue -u $USER：查看自己排隊中與執行中的 job（輸出省略）。',
-  'cat hello_42.out：job 結束後查看輸出檔（輸出省略）。',
+  'squeue -u $USER：查看自己排隊中與執行中的 job，輸出省略。',
+  'cat hello_42.out：job 結束後查看輸出檔，輸出省略。',
 ]" />
 
 ---
@@ -374,7 +374,7 @@ items:
     text: 每執行一次 srun 就是一個 job step，不能超過已取得的資源；也可以 ssh 進入分配到的 node。
   - title: 釋放資源
     code: exit
-    text: 離開 shell 或時間（-t）到期時回收資源；到期時仍在執行的 step 會被強制結束。
+    text: 離開 shell 或 -t 指定的時間到期時回收資源；到期時仍在執行的 step 會被強制結束。
 ---
 
 # salloc 的流程
@@ -395,7 +395,7 @@ chapter: Ch 4 · Submit Your First Job
 
 # sbatch、salloc 與 srun
 
-|  | `sbatch` | `salloc` | `srun`（單獨使用） |
+| 項目 | `sbatch` | `salloc` | 單獨使用 `srun` |
 | --- | --- | --- | --- |
 | 要資源 | 是 | 是 | 是，沒有現成的 allocation 時 |
 | 執行方式 | 在背景執行 script | 開互動 shell，手動下 `srun` | 直接執行一個指令 |
@@ -414,8 +414,6 @@ chapter: Ch 4 · Submit Your First Job
 | --- | --- |
 | `sinfo` | 查看 partition 與 node 狀態 |
 | `squeue -u $USER` | 查看自己的 job |
-| `srun` | 互動式執行 |
-| `salloc` | 取得資源並開啟互動 shell |
 | `sbatch script.sh` | 送出 batch job |
 | `scancel <jobid>` | 取消 job |
 | `scontrol show job <jobid>` | 查看 job 的詳細資訊 |

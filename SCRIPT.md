@@ -254,8 +254,8 @@
 筆記：
 
 - （1）sbatch：送出 job 後立即回到 shell，job 在背景排隊與執行。
-- （2）squeue -u $USER：查看自己排隊中與執行中的 job（輸出省略）。
-- （3）cat hello_42.out：job 結束後查看輸出檔（輸出省略）。
+- （2）squeue -u $USER：查看自己排隊中與執行中的 job，輸出省略。
+- （3）cat hello_42.out：job 結束後查看輸出檔，輸出省略。
 
 講稿：
 
@@ -676,8 +676,8 @@
 
 筆記：
 
-- （1）確認 controller 正常回應（輸出省略）。
-- （2）列出節點狀態，State 為 idle 代表可接收 job（輸出省略）。
+- （1）確認 controller 正常回應，輸出省略。
+- （2）列出節點狀態，State 為 idle 代表可接收 job，輸出省略。
 - （3）送出測試 job。叢集可以運作後，即可使用 Ch 4 的指令。
 
 講稿：
@@ -704,7 +704,7 @@
 
 筆記：
 
-- （1）在每個 compute node 分別執行。第一行可直接貼進 slurm.conf；UpTime 不屬於設定。RealMemory 建議略低於偵測值。
+- （1）在每個 compute node 分別執行。... 省略了 CPU 拓撲欄位，完整內容與 Ch 7 的 NodeName=DEFAULT 相同。第一行可直接貼進 slurm.conf，UpTime 不屬於設定。
 
 講稿：
 

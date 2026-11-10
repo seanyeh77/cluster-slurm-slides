@@ -46,14 +46,14 @@ clicks: 1
 # 取得節點的硬體規格
 
 <TerminalTyping :keep="1" :cmds="[
-  { c: 'sudo slurmd -C', o: 'NodeName=slurm-head CPUs=4 Boards=1 SocketsPerBoard=1 CoresPerSocket=4 ThreadsPerCore=1 RealMemory=3921\nUpTime=19-22:07:58' },
+  { c: 'sudo slurmd -C', o: 'NodeName=slurm-head CPUs=4 ... RealMemory=3921\nUpTime=19-22:07:58' },
 ]" />
 
 ::note::
 
 <Note :notes="[
   '',
-  '在每個 compute node 分別執行。第一行可直接貼進 slurm.conf；UpTime 不屬於設定。RealMemory 建議略低於偵測值。',
+  '在每個 compute node 分別執行。... 省略了 CPU 拓撲欄位，完整內容與 Ch 7 的 NodeName=DEFAULT 相同。第一行可直接貼進 slurm.conf，UpTime 不屬於設定。',
 ]" />
 
 ---
@@ -72,12 +72,12 @@ chapter: Ch 8 · Configuration and Operations
 
 # 修改設定後的生效方式
 
-| 修改內容 | 生效方式 |
+| 生效方式 | 修改內容 |
 | --- | --- |
-| 一般參數，例如 partition 限制、`Priority*` 權重 | `sudo scontrol reconfigure` |
-| 節點定義、`TmpFS`、port、`AuthType`、各類 plugin | 重啟 slurmctld 與所有 slurmd |
-| `slurmdbd.conf` | 重啟 slurmdbd |
-| `gres.conf`、`cgroup.conf` | 重啟對應節點的 slurmd |
+| `sudo scontrol reconfigure` | 一般參數，例如 partition 限制、`Priority*` 權重 |
+| 重啟 slurmctld 與所有 slurmd | 節點定義、`TmpFS`、port、`AuthType`、各類 plugin |
+| 重啟 slurmdbd | `slurmdbd.conf` |
+| 重啟對應節點的 slurmd | `gres.conf`、`cgroup.conf` |
 
 修改前先把 slurm.conf 同步到所有節點；三個 daemon 都要重啟時，依 slurmdbd、slurmctld、slurmd 的順序。
 

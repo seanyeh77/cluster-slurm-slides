@@ -145,7 +145,7 @@ chapter: Ch 3 · Cluster Software Stack
 | --- | --- | --- |
 | `slurmctld` | Head Node | 中央控制器，負責排程與管理所有 node 的狀態 |
 | `slurmd` | 每一台 Compute Node | 接收指令，在本機啟動與監控 job |
-| `slurmdbd` | DBD Node，常與 Head Node 合併 | 把記帳資料寫進資料庫（MySQL、MariaDB） |
+| `slurmdbd` | DBD Node，常與 Head Node 合併 | 把記帳資料寫進 MySQL 或 MariaDB |
 
 ---
 layout: figure

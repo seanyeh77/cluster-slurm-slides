@@ -11,7 +11,7 @@ big: true
 <Tile label="排程" value="slurmctld" mono>分配資源並排程，以 backfill 填滿空檔</Tile>
 <Tile variant="accent" label="執行" value="srun" mono>在 allocation 中產生 job step，送到所有分配到的 node</Tile>
 <Tile label="前置作業" value="時間、UID、home">所有節點的時鐘、帳號與 home 目錄一致</Tile>
-<Tile label="啟動順序" value="slurmdbd → slurmctld → slurmd" mono wide>上游先就緒，下游才能註冊</Tile>
+<Tile label="啟動順序" value="slurmdbd, slurmctld, slurmd" mono wide>上游先就緒，下游才能註冊</Tile>
 
 ---
 layout: end
