@@ -355,11 +355,11 @@
 
 - 44.batch 是 script 本身，44.0 與 44.1 是兩個 step，CPU 數與上一張圖一致。
 
-## 44. Q2．step 0 的 srun hostname 拿掉 srun，會輸出幾行？
+## 44. Q2．steps.sh 的 srun hostname 改成 hostname，這一行輸出幾行？
 
 講稿：
 
-- 題目指的是 steps.sh 裡 step 0 那一行 srun hostname，必要時翻回前一張指給大家看。
+- 題目指的是 steps.sh 中間那一行 srun hostname（不是最後的 srun -n 2 hostname），必要時翻回 steps.sh 那一張指給大家看。
 - 舉手表決後再公布答案。可以對照 steps.sh 的輸出：最上面那一行就是 script 開頭沒有 srun 的 hostname。
 - 沒有 srun 的程式只會用到一台 node；程式「有跑」，所以不容易察覺。
 

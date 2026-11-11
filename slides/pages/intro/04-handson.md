@@ -260,7 +260,7 @@ clicks: 1
 ---
 layout: quiz
 chapter: Ch 4 · Submit Your First Job
-question: Q2．step 0 的 srun hostname 拿掉 srun，會輸出幾行？
+question: Q2．steps.sh 的 srun hostname 改成 hostname，這一行輸出幾行？
 clicks: 1
 answer: 1
 options:
