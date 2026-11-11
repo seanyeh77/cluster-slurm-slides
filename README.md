@@ -27,9 +27,32 @@ npm run tokens      # 從 ui-design-system 更新 styles/tokens.css
 | `intro.md`、`build.md` | 兩份簡報的設定與封面，依序引入 `pages/intro/`、`pages/build/` |
 | `site/` | 入口頁 `index.html` 與首頁索引用的 `slides.json`，build 時複製到 `dist/` 根目錄 |
 | `layouts/` | Textbook 版型：cover、textbook、section、quiz、compare、focus、figure、reference、bento 等 |
-| `components/` | `TerminalTyping`、`AnnotatedCommand`、`ConfigDiff`、`Note`、`Tile`，以及分步圖 `Stepper` 與 `Dg*` |
+| `components/` | `TerminalTyping`、`AnnotatedCommand`、`ConfigDiff`、`Note`、`Tile`、播放動畫的 `MotionCanvas`，以及分步圖 `Stepper` 與 `Dg*` |
 | `styles/` | 版型樣式；`tokens.css` 來自 ui-design-system，`tokens-pinned.css` 由 `scripts/pin-tokens.mjs` 產生 |
 | `scripts/check-diagrams.py` | 逐步檢查每張 SVG 圖：線穿過方框、線壓到文字、文字重疊或超出、被 viewBox 切掉、縮小到 1x 以下 |
+
+## 動畫
+
+會動的機制（job 在機器之間移動、排程隨時間填滿、訊息逐層轉發）用 Motion Canvas 製作，放在 repo 根目錄的 `motion/`，由 `scripts/build-all.mjs` 先建置，再複製到每份簡報的 `motion/`，並以 `dist/motion/` 發佈成獨立播放頁（`?scene=名稱` 播單一場景）。
+
+| 場景 | 簡報 | 頁 |
+|---|---|---|
+| `pfs` | Introduction to Cluster | 平行檔案系統的讀寫流程 |
+| `backfill` | Introduction to Cluster | Backfill 的排程方式 |
+| `jobFlow` | Introduction to Cluster | 一個 job 的流程 |
+| `steps` | Introduction to Cluster | steps.sh 使用的資源 |
+| `components` | Building and Installing Slurm | Slurm 的元件 |
+| `treeWidth` | Building and Installing Slurm | TreeWidth 的樹狀轉發 |
+| `failover` | Building and Installing Slurm | slurmctld 的 active-standby 備援 |
+
+```bash
+cd motion
+npm install
+npm start          # Motion Canvas 編輯器，http://localhost:9000
+npm run build      # 播放頁輸出到 motion/dist/
+```
+
+每一步的說明在簡報右側的 note 欄；獨立播放頁與影片則畫在動畫下方。投影片上的 `<MotionCanvas>` 只在該頁成為目前頁面時才建立 iframe，因為 Slidev 預先載入的相鄰頁面是隱藏的，Motion Canvas 在 0 px 大小下量到的方塊與文字尺寸會是 0。
 
 ## 主題
 

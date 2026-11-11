@@ -137,9 +137,16 @@
 
 ## 22. 平行檔案系統的讀寫流程
 
+筆記：
+
+- （1）Lookup：先向 Metadata Service 查詢各個 chunk 的位置。
+- （2）資料直接對 4 台 Storage Node 同時讀寫，不必全部經過同一台 server。
+- （3）只有一台 server 時，chunk 只能依序經過它，I/O 全部集中在一台。
+
 講稿：
 
-- 第 1 步只問位置，第 2 步才真正搬資料，而且是 4 台同時。
+- 動畫：第 1 步只問位置，第 2 步才真正搬資料，而且 4 個 chunk 同時出發。
+- 第 3 步是對照：只有一台 server 時，同樣 4 個 chunk 必須一個接一個經過它，這就是 NFS 規模變大後的瓶頸。
 - 練習第 4 題就是問這張圖的設計理由。
 
 ## 23. home 放在 NFS，scratch 放在平行檔案系統
@@ -163,10 +170,20 @@
 
 ## 26. Backfill 的排程方式
 
+筆記：
+
+- （進入投影片）Job A 在 node01、node02 上執行到 3h。
+- （1）Job B 需要 4 台 node，必須等到 3h；node03、node04 先閒置。
+- （2）Job C 只需要 2 小時，能在 Job B 開始前完成，因此 backfill 進空檔。
+- （3）Job D 排在 Job B 之後。
+- （4）Job B 準時在 3h 開始，沒有被 Job C 延後。
+- （5）沒有 backfill 時，Job C 只能排在 Job B 之後。
+
 講稿：
 
-- 關鍵是 Job C 的長度剛好能在 3h 前結束，所以不會延後 Job B。
-- 最後一步是對照：沒有 backfill 時 Job C 排在 Job B 之後，node03、node04 前 3 小時完全閒置，Job C 也晚了 6 小時才開始。
+- 動畫上方的 Utilization 是 0h 到 3h 的利用率，Job C 補進空檔時從 50 % 升到 83 %。
+- 關鍵是 Job C 的長度剛好能在 3h 前結束，所以不會延後 Job B；第 4 步時間游標掃過，可以看到 Job B 準時在 3h 開始。
+- 最後一步是對照：沒有 backfill 時 Job C 排在 Job B 之後，node03、node04 前 3 小時完全閒置，利用率回到 50 %。
 - 這也是 Ch 4 要求 --time 估準的原因。
 
 ## 27. Slurm 的主要元件
@@ -177,9 +194,20 @@
 
 ## 28. 一個 job 的流程
 
+筆記：
+
+- （1）sbatch：在 Login Node 送出 job，交給 slurmctld。
+- （2）slurmctld 排程後，把 job 派送給 slurmd。
+- （3）slurmd 在 Compute Node 上執行 job。
+- （4）輸出寫到 Shared Storage 上的 slurm-42.out。
+- （5）Login Node 直接讀取同一個檔案。
+- （6）沒有共用儲存時，輸出只留在 Compute Node 的本機磁碟。
+
 講稿：
 
-- 三個步驟對應 Submit、Dispatch、Write output，之後的 hello.sh 就是這個流程。
+- 前五步依序是 Submit、Dispatch、Run、Write output、Read output，之後的 hello.sh 就是這個流程。
+- 第 5 步強調：使用者在 Login Node 就能 cat slurm-42.out，是因為輸出寫在共用儲存上。
+- 最後一步是對照：沒有共用儲存時，輸出留在 Compute Node 的本機磁碟，Login Node 上會看到 No such file。
 
 ## 29. 以 Spack 建置軟體，以 module load 切換環境
 
@@ -293,9 +321,19 @@
 
 ## 41. steps.sh 使用的資源
 
+筆記：
+
+- （1）sbatch 先要一塊資源：2 台 node，每台 4 個 task。
+- （2）script 本身只在 batch host，也就是 slurm-compute 上執行。
+- （3）step 0：srun 用滿整塊 allocation，共 8 個 task。
+- （4）step 1：srun -n 2 只使用其中 2 個 task。
+- （5）沒有 srun 的 ./a.out 只在 batch host 執行，slurm-head 整段時間閒置。
+
 講稿：
 
-- 依步驟對照 steps.sh 的三行，最後一步只有 2 格亮起。
+- 右邊的 slurm-44.out 每一行都對應左邊某一格 task 的輸出，依步驟對照 steps.sh 的三行。
+- step 1 只有 slurm-compute 的 2 格亮起，所以最後 2 行都是 slurm-compute。
+- 最後一步是對照：script 裡直接執行 ./a.out、沒有 srun，只有 batch host 的一格在跑，slurm-head 整段時間閒置，這是最常見的錯誤。
 
 ## 42. steps.sh 的輸出
 

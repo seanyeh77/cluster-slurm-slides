@@ -197,18 +197,24 @@ srun -n 2 hostname # step 1：只用其中 2 個 task
 ]" />
 
 ---
-layout: figure
+layout: textbook
 chapter: Ch 4 · Submit Your First Job
-clicks: 3
+clicks: 5
 ---
 
 # steps.sh 使用的資源
 
-<DgSteps :captions="[
-  'sbatch 先向 Slurm 要一塊資源：2 台 node，每台 4 個 task。',
+<MotionCanvas src="motion/index.html" scene="steps" :steps="5" />
+
+::note::
+
+<Note :notes="[
+  '',
+  'sbatch 先要一塊資源：2 台 node，每台 4 個 task。',
   'script 本身只在 batch host，也就是 slurm-compute 上執行。',
   'step 0：srun 用滿整塊 allocation，共 8 個 task。',
   'step 1：srun -n 2 只使用其中 2 個 task。',
+  '沒有 srun 的 ./a.out 只在 batch host 執行，slurm-head 整段時間閒置。',
 ]" />
 
 ---

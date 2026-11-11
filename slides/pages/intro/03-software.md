@@ -65,17 +65,22 @@ clicks: 3
 </div>
 
 ---
-layout: figure
+layout: textbook
 chapter: Ch 3 · Cluster Software Stack
-clicks: 1
-takeaway: metadata 與實際資料分開，由不同服務處理，資料不必全部經過同一台 server。
+clicks: 3
 ---
 
 # 平行檔案系統的讀寫流程
 
-<DgPfs :captions="[
-  'Client 先向 Metadata Service 查詢各個 chunk 存在哪裡。',
-  '接著直接對 4 台 Storage Node 同時讀寫 Chunk 1 到 Chunk 4。',
+<MotionCanvas src="motion/index.html" scene="pfs" :steps="3" />
+
+::note::
+
+<Note :notes="[
+  '',
+  'Lookup：先向 Metadata Service 查詢各個 chunk 的位置。',
+  '資料直接對 4 台 Storage Node 同時讀寫，不必全部經過同一台 server。',
+  '只有一台 server 時，chunk 只能依序經過它，I/O 全部集中在一台。',
 ]" />
 
 ---
@@ -120,19 +125,24 @@ clicks: 3
 </div>
 
 ---
-layout: figure
+layout: textbook
 chapter: Ch 3 · Cluster Software Stack
-clicks: 4
+clicks: 5
 ---
 
 # Backfill 的排程方式
 
-<DgBackfill :captions="[
-  'Job A 在 node01、node02 上執行到 3h，node03、node04 目前閒置。',
-  'Job B 需要 4 台 node，必須等 Job A 在 3h 結束後才能開始。',
-  'Job C 只需要 2 小時，能在 Job B 開始前完成，因此被 backfill 進空檔。',
-  'Job D 排在 Job B 之後執行。',
-  '沒有 backfill 時，Job C 只能排在 Job B 之後，node03、node04 在前 3 小時閒置。',
+<MotionCanvas src="motion/index.html" scene="backfill" :steps="5" />
+
+::note::
+
+<Note :notes="[
+  'Job A 在 node01、node02 上執行到 3h。',
+  'Job B 需要 4 台 node，必須等到 3h；node03、node04 先閒置。',
+  'Job C 只需要 2 小時，能在 Job B 開始前完成，因此 backfill 進空檔。',
+  'Job D 排在 Job B 之後。',
+  'Job B 準時在 3h 開始，沒有被 Job C 延後。',
+  '沒有 backfill 時，Job C 只能排在 Job B 之後。',
 ]" />
 
 ---
@@ -149,17 +159,25 @@ chapter: Ch 3 · Cluster Software Stack
 | `slurmdbd` | DBD Node，常與 Head Node 合併 | 把記帳資料寫進 MySQL 或 MariaDB |
 
 ---
-layout: figure
+layout: textbook
 chapter: Ch 3 · Cluster Software Stack
-clicks: 2
+clicks: 6
 ---
 
 # 一個 job 的流程
 
-<DgJobFlow :captions="[
-  '使用者在 Login Node 以 sbatch 送出 job。',
-  'Head Node 的 slurmctld 排程後，把 job 派送給 Compute Node 的 slurmd。',
-  'job 的輸出寫到 Shared Storage 上的 slurm-42.out。',
+<MotionCanvas src="motion/index.html" scene="jobFlow" :steps="6" />
+
+::note::
+
+<Note :notes="[
+  '',
+  'sbatch：在 Login Node 送出 job，交給 slurmctld。',
+  'slurmctld 排程後，把 job 派送給 slurmd。',
+  'slurmd 在 Compute Node 上執行 job。',
+  '輸出寫到 Shared Storage 上的 slurm-42.out。',
+  'Login Node 直接讀取同一個檔案。',
+  '沒有共用儲存時，輸出只留在 Compute Node 的本機磁碟。',
 ]" />
 
 ---

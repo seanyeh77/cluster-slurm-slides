@@ -27,14 +27,24 @@ chapter: Ch 4 · Configuration and Operations
 | `TreeWidth` | 每個 slurmd 最多轉發給幾個子節點，預設 16 個 |
 
 ---
-layout: figure
+layout: textbook
 chapter: Ch 4 · Configuration and Operations
-takeaway: 以預設的 TreeWidth=16 為例，3 次轉發就能涵蓋超過 4000 個節點。
+clicks: 4
 ---
 
 # TreeWidth 的樹狀轉發
 
-<DgTree class="dg" />
+<MotionCanvas src="motion/index.html" scene="treeWidth" :steps="4" />
+
+::note::
+
+<Note :notes="[
+  '',
+  'slurmctld 只直接傳給 16 個 slurmd。',
+  '每個 slurmd 再轉發給最多 16 個，共 256 個。',
+  '以預設的 TreeWidth=16 為例，3 次轉發就能涵蓋超過 4000 個節點。',
+  '不轉發時，slurmctld 必須自己送出 4096 份訊息。',
+]" />
 
 ---
 layout: textbook

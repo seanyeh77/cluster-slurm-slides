@@ -35,6 +35,12 @@
 
 ## 5. Slurm 的元件
 
+筆記：
+
+- （1）sbatch、srun、sinfo 把請求送給 slurmctld。
+- （2）slurmctld 把 job 派送給每台 Compute Node 的 slurmd。
+- （3）記帳資料交給 slurmdbd，由 slurmdbd 寫入 MariaDB。
+
 講稿：
 
 - 從這裡開始換成管理員的角度。三個步驟對應三個 daemon 與它們的通訊方向。
@@ -333,9 +339,17 @@
 
 ## 40. TreeWidth 的樹狀轉發
 
+筆記：
+
+- （1）slurmctld 只直接傳給 16 個 slurmd。
+- （2）每個 slurmd 再轉發給最多 16 個，共 256 個。
+- （3）以預設的 TreeWidth=16 為例，3 次轉發就能涵蓋超過 4000 個節點。
+- （4）不轉發時，slurmctld 必須自己送出 4096 份訊息。
+
 講稿：
 
-- 每多一層，涵蓋的節點數乘以 16。
+- 每多一層，涵蓋的節點數乘以 16；右上角的計數顯示 slurmctld 自己始終只送出 16 份。
+- 最後一步是對照：不轉發時，slurmctld 要自己送出 4096 份訊息。
 
 ## 41. 取得節點的硬體規格
 
@@ -389,9 +403,16 @@
 
 ## 48. slurmctld 的 active-standby 備援
 
+筆記：
+
+- （1）head1 寫入狀態；head2 以 heartbeat 確認 head1 仍在運作。
+- （2）head1 超過 SlurmctldTimeout 秒沒有回應時，head2 判定它故障；預設為 120 秒。
+- （3）head2 讀取最後的狀態接手；執行中的 job 不受影響，因為 job 由 slurmd 執行。
+
 講稿：
 
 - 回應 Introduction to Cluster 的 Q1：這就是 High Availability 的做法。
+- 第 2 步的計時器跑到 120 秒，對應 SlurmctldTimeout 的預設值。
 - 強調切換期間執行中的 job 不受影響。
 
 ## 49. 設定 slurmctld 備援

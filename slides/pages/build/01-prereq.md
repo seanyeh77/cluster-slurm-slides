@@ -12,17 +12,22 @@ chapter: Ch 1 · Prerequisites
 - **5.4** slurm 帳號與開發套件
 
 ---
-layout: figure
+layout: textbook
 chapter: Ch 1 · Prerequisites
-clicks: 2
+clicks: 3
 ---
 
 # Slurm 的元件
 
-<DgComponents :captions="[
-  '使用者以 sbatch、srun、sinfo 把請求送給 Head Node 上的 slurmctld。',
-  'slurmctld 把 job 派送給每台 Compute Node 上的 slurmd。',
-  'slurmctld 把記帳資料交給 slurmdbd，由 slurmdbd 寫入 MariaDB。',
+<MotionCanvas src="motion/index.html" scene="components" :steps="3" />
+
+::note::
+
+<Note :notes="[
+  '',
+  'sbatch、srun、sinfo 把請求送給 slurmctld。',
+  'slurmctld 把 job 派送給每台 Compute Node 的 slurmd。',
+  '記帳資料交給 slurmdbd，由 slurmdbd 寫入 MariaDB。',
 ]" />
 
 ---

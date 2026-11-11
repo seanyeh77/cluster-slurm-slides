@@ -39,18 +39,22 @@ clicks: 2
 </div>
 
 ---
-layout: figure
+layout: textbook
 chapter: Ch 5 · Production Deployment
-clicks: 2
-takeaway: 切換期間執行中的 job 不受影響，job 由 compute node 上的 slurmd 執行。
+clicks: 3
 ---
 
 # slurmctld 的 active-standby 備援
 
-<DgFailover :captions="[
-  'head1 把 job queue 與 node 狀態寫入 StateSaveLocation；head2 定期以 heartbeat 確認 head1 仍在運作。',
-  'head1 超過 SlurmctldTimeout 秒沒有回應，head2 判定它故障。',
-  'head2 讀取 head1 最後寫下的狀態，接手排程；slurmd 與指令改連 head2。',
+<MotionCanvas src="motion/index.html" scene="failover" :steps="3" />
+
+::note::
+
+<Note :notes="[
+  '',
+  'head1 寫入狀態；head2 以 heartbeat 確認 head1 仍在運作。',
+  'head1 超過 SlurmctldTimeout 秒沒有回應時，head2 判定它故障；預設為 120 秒。',
+  'head2 讀取最後的狀態接手；執行中的 job 不受影響，因為 job 由 slurmd 執行。',
 ]" />
 
 ---

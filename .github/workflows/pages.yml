@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'slides/**'
+      - 'motion/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -29,8 +30,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: slides/package-lock.json
+          cache-dependency-path: |
+            slides/package-lock.json
+            motion/package-lock.json
       - run: npm ci
+      - run: npm ci
+        working-directory: motion
       - run: node scripts/sync-tokens.mjs
       - run: node scripts/build-all.mjs
         env:
