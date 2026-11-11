@@ -91,7 +91,7 @@
 
 講稿：
 
-- 範例叢集只有 2 台，所以 slurm-head 身兼多職。
+- Ch 4 使用的範例叢集只有 2 台，所以 slurm-head 身兼多職。
 - 小型 cluster 常把好幾個角色放在同一台機器上，例如 Login Node 與 Head Node 合併，或讓 slurmctld 與 slurmdbd 在同一台執行。
 
 ## 15. 計算一律透過 scheduler 送到 Compute Node
@@ -192,15 +192,24 @@
 
 ## 30. Submit Your First Job
 
-## 31. 範例叢集：slurm-head 與 slurm-compute
+## 31. 範例叢集
+
+講稿：
+
+- 實作使用的範例叢集有 2 台 node，每台 4 個 CPU。
+- slurm-head 兼任 login、controller 與 compute：使用者 SSH 進入的就是它，slurmctld、slurmdbd 也在上面執行，同時它也有 slurmd，會分到計算工作。
+- slurm-compute 只執行 slurmd，是純粹的 Compute Node。
+- 兩台機器就是 Building and Installing Slurm 建起來的叢集。
+
+## 32. 以下指令都在 slurm-head 上執行
 
 講稿：
 
 - 請大家打開指令清單，之後的指令都可以從那裡複製。
 - 在自己的電腦上沒有 cluster 時，跳過操作，只看輸出。
-- 範例叢集有 2 台 node，每台 4 個 CPU；slurm-head 兼任 login、controller 與 compute。
+- 所有指令都在 slurm-head，也就是 login 的角色上輸入。
 
-## 32. 查看 partition 與 node
+## 33. 查看 partition 與 node
 
 筆記：
 
@@ -210,13 +219,13 @@
 
 - 先確認 2 台 node 都是 idle，才能接著送 job。
 
-## 33. Node 的狀態
+## 34. Node 的狀態
 
 講稿：
 
 - drain 與 down 的差別：drain 是管理員主動暫停，down 是 Slurm 聯絡不到 node。
 
-## 34. 以 srun 執行互動式 job
+## 35. 以 srun 執行互動式 job
 
 筆記：
 
@@ -226,7 +235,7 @@
 
 - srun 單獨使用時會自己要資源、執行、歸還，三件事一次完成。
 
-## 35. 撰寫 job script
+## 36. 撰寫 job script
 
 筆記：
 
@@ -243,7 +252,7 @@
 
 - 逐行點出 #SBATCH 選項，最後一行的 srun 是真正執行的程式。
 
-## 36. 以 sbatch 送出 batch job
+## 37. 以 sbatch 送出 batch job
 
 筆記：
 
@@ -256,20 +265,20 @@
 - sbatch 送出後立即回到 shell，可以用 squeue 觀察 job 的狀態，結束後再看輸出檔。
 - 輸出檔名中的 42 來自 --output 的 %j。
 
-## 37. --time 估得越準，越有機會提早執行
+## 38. --time 估得越準，越有機會提早執行
 
 講稿：
 
 - 連結 Ch 3 的 Backfill 圖：短 job 才排得進空檔。
 - 時間設得越短，越有機會被 backfill 提早排到。
 
-## 38. Job Allocation 與 Job Step
+## 39. Job Allocation 與 Job Step
 
 講稿：
 
 - 三個名詞是下一個範例的基礎。
 
-## 39. 一個 job 中的兩個 step
+## 40. 一個 job 中的兩個 step
 
 筆記：
 
@@ -282,13 +291,13 @@
 
 - 逐行對照註解：第 7 行沒有 srun，第 8、9 行各產生一個 step。
 
-## 40. steps.sh 使用的資源
+## 41. steps.sh 使用的資源
 
 講稿：
 
 - 依步驟對照 steps.sh 的三行，最後一步只有 2 格亮起。
 
-## 41. steps.sh 的輸出
+## 42. steps.sh 的輸出
 
 筆記：
 
@@ -298,7 +307,7 @@
 
 - 請大家數一下：1 行、8 行、2 行，總共 11 行。
 
-## 42. 以 sacct 查看每個 step
+## 43. 以 sacct 查看每個 step
 
 筆記：
 
@@ -308,14 +317,14 @@
 
 - 44.batch 是 script 本身，44.0 與 44.1 是兩個 step，CPU 數與上一張圖一致。
 
-## 43. Q2．第 8 行改成不加 srun 的 hostname，會輸出幾行？
+## 44. Q2．第 8 行改成不加 srun 的 hostname，會輸出幾行？
 
 講稿：
 
 - 舉手表決後再公布答案。可以對照 steps.sh 的輸出：第 1 行就是沒有 srun 的 hostname。
 - 沒有 srun 的程式只會用到一台 node；程式「有跑」，所以不容易察覺。
 
-## 44. 在同一個 allocation 中同時執行多個 step
+## 45. 在同一個 allocation 中同時執行多個 step
 
 筆記：
 
@@ -328,7 +337,7 @@
 - 先說明 ./a.out：用 gcc 編譯 C 程式、沒有以 -o 指定檔名時，執行檔預設叫 a.out；./ 表示執行目前目錄裡的這個檔案。換成任何自己的程式都一樣。
 - --exact 讓每個 step 只拿自己要求的資源，最後的 wait 等所有背景 step 結束。
 
-## 45. 以 dependency 串接 job
+## 46. 以 dependency 串接 job
 
 筆記：
 
@@ -340,7 +349,7 @@
 
 - script 中的 sbatch 和 srun 意義完全不同：sbatch 送出新的 job，重新排隊。
 
-## 46. 以 salloc 取得互動式資源
+## 47. 以 salloc 取得互動式資源
 
 筆記：
 
@@ -352,7 +361,7 @@
 
 - 取得資源後，shell 仍在 login node，hostname 會顯示 slurm-head。
 
-## 47. 進入分配到的 node 後歸還資源
+## 48. 進入分配到的 node 後歸還資源
 
 筆記：
 
@@ -366,32 +375,32 @@
 - ssh 進入 node 適合查看狀態或除錯；啟動平行程式仍建議用 srun，資源才會記錄在 sacct。
 - 要 exit 兩次：先離開 SSH，再離開 salloc。
 
-## 48. salloc 的流程
+## 49. salloc 的流程
 
 講稿：
 
 - 五個步驟對照前兩張的終端機畫面。
 
-## 49. 常見錯誤：在 salloc 的 shell 中直接執行程式
+## 50. 常見錯誤：在 salloc 的 shell 中直接執行程式
 
 講稿：
 
 - 這和 Q2 是同一類錯誤：沒有 srun 就不會用到分配到的 node。
 - 在 salloc 的 shell 裡直接執行 ./a.out，程式在 login node 上執行，分配到的 compute node 完全閒置。拿到 shell 後先以 hostname 確認所在的主機。
 
-## 50. sbatch、salloc 與 srun
+## 51. sbatch、salloc 與 srun
 
 講稿：
 
 - 三者都會要資源，差別在執行方式與何時釋放資源。
 
-## 51. 指令總表
+## 52. 指令總表
 
 講稿：
 
 - 指令清單頁面也有完整列表。
 
-## 52. 練習
+## 53. 練習
 
 講稿：
 
@@ -399,13 +408,13 @@
 
 # Summary
 
-## 53. 重點整理
+## 54. 重點整理
 
 講稿：
 
 - 用這張回顧 cluster 的架構與 Slurm 的使用。
 
-## 54. 接下來
+## 55. 接下來
 
 講稿：
 

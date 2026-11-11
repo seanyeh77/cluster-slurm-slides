@@ -21,10 +21,12 @@
 
 - 四個目標依序對應 Prerequisites、Installation、Example Configuration 與 Production Deployment。
 
-## 3. 沿用 Introduction to Cluster 的範例叢集
+## 3. 要建置的範例叢集
 
 講稿：
 
+- 這 2 台機器就是 Introduction to Cluster 實作時使用的叢集，這份改從管理員的角度把它建起來。
+- slurm-head（10.1.253.75）兼任 login、controller、DBD 與 compute；slurm-compute（10.1.253.77）只執行 slurmd。
 - 先確認大家熟悉 Introduction to Cluster 的內容：node 的角色、slurmctld 與 slurmd、sbatch 與 srun。
 
 # Ch 1 · Prerequisites

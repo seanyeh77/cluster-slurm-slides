@@ -11,10 +11,11 @@ chapter: Overview
 4. 說明正式環境的備援方式與 partition 規劃
 
 ---
-layout: statement
+layout: figure
 chapter: Overview
+takeaway: 這就是 Introduction to Cluster 實作時使用的叢集；以下從管理員的角度建置它。
 ---
 
-# 沿用 Introduction to Cluster 的範例叢集
+# 要建置的範例叢集
 
-`slurm-head` 與 `slurm-compute`，每台 4 個 CPU；以下從管理員的角度建置它。
+<DgExample ips class="dg" />

@@ -30,7 +30,7 @@ Cluster 中的一台獨立電腦。每個 node 都有自己的 CPU、記憶體�
 
 ::example::
 
-範例叢集有 2 台 node：`slurm-head` 與 `slurm-compute`，每台 4 個 CPU。
+Ch 4 使用的範例叢集有 2 台 node：`slurm-head` 與 `slurm-compute`，每台 4 個 CPU。
 
 ---
 layout: compare

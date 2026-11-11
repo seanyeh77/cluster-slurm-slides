@@ -12,11 +12,21 @@ chapter: Ch 4 · Submit Your First Job
 - **4.4** salloc
 
 ---
+layout: figure
+chapter: Ch 4 · Submit Your First Job
+takeaway: slurm-head 兼任 login、controller 與 compute；兩台機器的建置方式見 Building and Installing Slurm。
+---
+
+# 範例叢集
+
+<DgExample class="dg" />
+
+---
 layout: statement
 chapter: Ch 4 · Submit Your First Job
 ---
 
-# 範例叢集：slurm-head 與 slurm-compute
+# 以下指令都在 slurm-head 上執行
 
 指令清單：`seanyeh77.github.io/cluster-slurm-slides/commands.html`
 

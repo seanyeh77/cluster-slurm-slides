@@ -70,7 +70,7 @@ chapter: Ch 2 · Cluster Architecture
 
 # 角色是功能上的區分，不一定是實體機器的區分
 
-範例叢集的 `slurm-head` 同時是 login、controller 與 compute。
+Ch 4 使用的範例叢集中，`slurm-head` 同時是 login、controller 與 compute。
 
 ---
 layout: statement
