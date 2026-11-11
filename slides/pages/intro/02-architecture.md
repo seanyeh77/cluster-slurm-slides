@@ -101,17 +101,3 @@ items:
 ---
 
 # Cluster 中的三種網路
-
----
-layout: textbook
-chapter: Ch 2 · Cluster Architecture
-clicks: 3
----
-
-# 網路相關名詞
-
-<div class="deflist">
-  <div v-click="1"><b>MPI</b><span>Message Passing Interface，平行程式的通訊標準。一個程式在多台 node 上同時執行多個 process，彼此以 MPI 傳送訊息、交換資料。</span></div>
-  <div v-click="2"><b>RDMA</b><span>Remote Direct Memory Access，讓一台機器直接讀寫另一台機器的記憶體，不經過對方的 CPU 與 OS kernel，因此延遲很低。</span></div>
-  <div v-click="3"><b>BMC</b><span>Baseboard Management Controller，主機板上獨立的小型控制器，有自己的網路，主機關機或當機時仍能遠端管理。</span></div>
-</div>
