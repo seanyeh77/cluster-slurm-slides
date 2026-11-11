@@ -191,8 +191,9 @@
 
 筆記：
 
-- （1）/run 重開機時會清空，以 tmpfiles 設定每次開機時建立。
-- （2）立即依設定建立目錄。
+- （1）進入 /etc/tmpfiles.d，接下來的設定檔寫在這裡。
+- （2）/run 重開機時會清空，以 tmpfiles 設定每次開機時建立。
+- （3）立即依設定建立目錄。
 
 講稿：
 
@@ -241,18 +242,27 @@
 - （1）SlurmctldHost：controller 的短 hostname，與 hostname -s 相同。
 - （2）AuthType：認證 plugin。SlurmUser：執行 daemon 的帳號。
 - （3）MailProg：不寄通知信時設為 /bin/true。
-- （4）ProctrackType、TaskPlugin：以 cgroup 追蹤與限制 job 的 process。
-- （5）ReturnToService=1：因無回應而 DOWN 的節點，重新註冊時自動恢復。其餘為 PID、spool、state 與 log 的路徑。
+- （4）cgroup 追蹤與限制 job 的 process；ReturnToService=1 讓因無回應而 DOWN 的節點重新註冊時自動恢復。
 
 講稿：
 
-- 逐段點出設定：名稱與 controller、認證、通知信、process 追蹤、各種路徑。
+- 逐段點出設定：名稱與 controller、認證、通知信、process 追蹤與自動恢復。
 
-## 31. slurm.conf：排程與記帳
+## 31. slurm.conf：PID、spool 與 log 路徑
 
 筆記：
 
-- （進入投影片）接續上一頁，同一份檔案的中段。
+- （進入投影片）接續上一頁。spool 與 log 目錄即先前以 root 建立並交給 slurm 的目錄。
+
+講稿：
+
+- 這幾行只是路徑，對照第 24 張建立的目錄即可，不需逐行說明。
+
+## 32. slurm.conf：排程與記帳
+
+筆記：
+
+- （進入投影片）接續上一頁，同一份檔案的後段。
 - （1）backfill 讓小 job 利用空檔；cons_tres 讓一台節點同時執行多個 job。
 - （2）記帳交給 slurm-head 上的 slurmdbd，port 與 slurmdbd.conf 的 DbdPort 相同。
 
@@ -260,13 +270,14 @@
 
 - 這一段決定排程方式，以及記帳資料送到哪裡。
 
-## 32. slurm.conf：節點與 partition
+## 33. slurm.conf：節點與 partition
 
 講稿：
 
 - NodeName=DEFAULT 設定共同的硬體規格，再逐一列出每台 node 的 IP。
+- 原本一行寫完的 NodeName=DEFAULT 太長，以行尾的 \ 接續到下一行；slurm.conf 會把兩行合成同一筆設定。
 
-## 33. slurmdbd.conf
+## 34. slurmdbd.conf
 
 筆記：
 
@@ -279,7 +290,7 @@
 
 - slurmdbd.conf 只在 DBD 節點。DbdPort 與 slurm.conf 的 AccountingStoragePort 要一致。
 
-## 34. 保護 slurmdbd.conf
+## 35. 保護 slurmdbd.conf
 
 筆記：
 
@@ -290,13 +301,13 @@
 
 - 權限錯誤是 slurmdbd 啟動失敗的常見原因。
 
-## 35. 依上下游順序啟動 daemon
+## 36. 依上下游順序啟動 daemon
 
 講稿：
 
 - 依上下游順序啟動：slurmdbd、slurmctld、slurmd。
 
-## 36. 驗證叢集
+## 37. 驗證叢集
 
 筆記：
 
@@ -310,21 +321,21 @@
 
 # Ch 4 · Configuration and Operations
 
-## 37. Configuration and Operations
+## 38. Configuration and Operations
 
-## 38. slurm.conf 的重要參數
+## 39. slurm.conf 的重要參數
 
 講稿：
 
 - 只列出最常調整的參數，完整說明見 slurm.conf man page。
 
-## 39. TreeWidth 的樹狀轉發
+## 40. TreeWidth 的樹狀轉發
 
 講稿：
 
 - 每多一層，涵蓋的節點數乘以 16。
 
-## 40. 取得節點的硬體規格
+## 41. 取得節點的硬體規格
 
 筆記：
 
@@ -334,20 +345,20 @@
 
 - 在虛擬機上 CPU 拓撲常與實體機不同，一定要以 slurmd -C 的結果為準。
 
-## 41. /tmp 為 tmpfs 時，不要以它的大小填 TmpDisk
+## 42. /tmp 為 tmpfs 時，不要以它的大小填 TmpDisk
 
 講稿：
 
 - /tmp 是 tmpfs 時，暫存空間其實是記憶體。
 - job 寫入 /tmp 的檔案可能導致記憶體不足。需要暫存空間時，把 TmpFS 指向實體磁碟上的目錄，例如 /var/tmp，再填入 TmpDisk。
 
-## 42. 修改設定後的生效方式
+## 43. 修改設定後的生效方式
 
 講稿：
 
 - 不確定時，重啟最保險。
 
-## 43. 查看節點狀態並恢復上線
+## 44. 查看節點狀態並恢復上線
 
 筆記：
 
@@ -360,28 +371,28 @@
 
 # Ch 5 · Production Deployment
 
-## 44. Production Deployment
+## 45. Production Deployment
 
-## 45. 正式環境的三層架構
+## 46. 正式環境的三層架構
 
 講稿：
 
 - 依步驟逐層建立：Access、Control、Compute。
 
-## 46. 備援相關名詞
+## 47. 備援相關名詞
 
 講稿：
 
 - 兩個名詞是 slurmctld 備援的基礎。
 
-## 47. slurmctld 的 active-standby 備援
+## 48. slurmctld 的 active-standby 備援
 
 講稿：
 
 - 回應 Introduction to Cluster 的 Q1：這就是 High Availability 的做法。
 - 強調切換期間執行中的 job 不受影響。
 
-## 48. 設定 slurmctld 備援
+## 49. 設定 slurmctld 備援
 
 筆記：
 
@@ -394,7 +405,7 @@
 
 - 所有節點的 slurm.conf 都要列出兩台 controller，而且順序相同。
 
-## 49. 測試切換
+## 50. 測試切換
 
 筆記：
 
@@ -406,45 +417,45 @@
 
 - 停止 primary 後要等超過 SlurmctldTimeout，backup 才會接手。
 
-## 50. StateSaveLocation 不能成為新的單點故障
+## 51. StateSaveLocation 不能成為新的單點故障
 
 講稿：
 
 - 共用狀態目錄本身也要有備援，否則只是把單點故障換了位置。
 - StateSaveLocation 放在一台普通的 NFS server 上時，NFS server 停機，兩台 controller 都讀不到狀態。正式環境使用雙機的 NFS 或平行檔案系統。
 
-## 51. slurmdbd 的備援
+## 52. slurmdbd 的備援
 
 講稿：
 
 - 兩台 slurmdbd 寫入同一個 MariaDB。資料庫不在本機時，帳號要允許兩台 head node 連線。
 
-## 52. slurmdbd 可以短暫停止，但不能停太久
+## 53. slurmdbd 可以短暫停止，但不能停太久
 
 講稿：
 
 - MariaDB 的複寫或叢集超出這份內容的範圍。
 - 兩台 slurmdbd 都停止時，slurmctld 仍可排程，記帳紀錄恢復後再補送。MariaDB 本身仍是單點故障，正式環境會再設定複寫或 Galera Cluster。
 
-## 53. Partition 規劃：16 台 CPU node 加 4 台 GPU node
+## 54. Partition 規劃：16 台 CPU node 加 4 台 GPU node
 
 講稿：
 
 - debug 的 node 同時屬於 cpu，不會閒置。
 
-## 54. 設定 Partition
+## 55. 設定 Partition
 
 講稿：
 
 - GPU 還需要 gres.conf，詳見 GRES 文件。
 
-## 55. Partition 參數
+## 56. Partition 參數
 
 講稿：
 
 - DefaultTime 沒設時，backfill 幾乎無法發揮作用。
 
-## 56. 限制每位使用者在 Login Node 上的資源
+## 57. 限制每位使用者在 Login Node 上的資源
 
 筆記：
 
@@ -458,7 +469,7 @@
 
 - 寫入後執行 sudo systemctl daemon-reload，使用者重新登入後生效；root 的 user-0.slice 要另外解除限制。
 
-## 57. 以 VIP 讓多台 Login Node 共用一個位址
+## 58. 以 VIP 讓多台 Login Node 共用一個位址
 
 講稿：
 
@@ -467,13 +478,13 @@
 
 # Summary
 
-## 58. 重點整理
+## 59. 重點整理
 
 講稿：
 
 - 用這張回顧建置 Slurm 的重點。
 
-## 59. Further Reading
+## 60. Further Reading
 
 講稿：
 

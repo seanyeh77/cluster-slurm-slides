@@ -26,7 +26,7 @@
 .tb-main > *, .tb-group > * { max-width: 100%; margin: 0; }
 .tb-main > p, .tb-main > ul, .tb-main > ol, .tb-group > p, .tb-group > ul { font-size: 35px; line-height: 1.6; }
 .tb-main ul, .tb-group ul { display: grid; gap: 12px; padding-left: 32px; }
-.tb-main li::marker, .tb-group li::marker { color: var(--tb-teal); }
+.tb-main li::marker, .tb-group li::marker { color: var(--tb-teal-text); }
 .tb-main code, .tb-group code, .col-text code, .cmp-v code, .step-text code, .fig-take code {
   font-family: var(--tb-mono); background: var(--tb-code); padding: 0 8px; font-size: 0.86em;
 }
@@ -99,7 +99,7 @@
 
 /* Syntax colors for Terminal, diff, annotated command and layer diagram */
 .t-sheb, .t-eq, .t-cmt { color: var(--neutral-500); }
-.t-dir { color: var(--accent); font-weight: 500; }
+.t-dir { color: var(--accent-text); font-weight: 500; }
 .t-opt, .t-key { color: var(--warning-text); }
 .t-val { color: var(--info-text); }
 .t-cmd { color: var(--ink); font-weight: 500; }
@@ -155,9 +155,9 @@
 .fc-index li.done { color: var(--tb-mut); }
 .fc-index li.on { color: var(--tb-ink); font-weight: 600; border-left-color: var(--tb-teal); }
 .fc-n { font-family: var(--tb-serif); font-weight: 700; font-size: 30px; color: inherit; min-width: 44px; }
-.fc-index li.on .fc-n { color: var(--tb-teal); }
+.fc-index li.on .fc-n { color: var(--tb-teal-text); }
 .fc-main { display: flex; flex-direction: column; gap: 26px; border-left: 3px solid var(--tb-ink); padding: 12px 0 12px 64px; }
-.fc-label { font-size: 22px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tb-teal); }
+.fc-label { font-size: 22px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tb-teal-text); }
 .fc-title { font-family: var(--tb-serif); font-size: 76px; font-weight: 700; line-height: 1.15; color: var(--tb-ink); }
 .slidev-layout.tb-focus .fc-code { align-self: flex-start; font-family: var(--tb-mono); font-size: 36px; background: var(--tb-code); border: 1.5px solid var(--tb-rule); padding: 10px 20px; }
 .fc-text { font-size: 40px; line-height: 1.6; color: var(--tb-ink); max-width: 1080px; }

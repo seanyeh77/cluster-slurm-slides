@@ -23,14 +23,12 @@ chapter: Ch 3 · Example Configuration
 layout: textbook
 chapter: Ch 3 · Example Configuration
 ltag: slurm.conf
-clicks: 5
+clicks: 4
 ---
 
 # slurm.conf：基本設定
 
-<div class="code-md">
-
-```shell {all|1-2|3-4|5|6-8|9-15}
+```shell {all|1-2|3-4|5|6-9}
 ClusterName=cluster
 SlurmctldHost=slurm-head
 AuthType=auth/slurm
@@ -40,15 +38,7 @@ MpiDefault=pmi2
 ProctrackType=proctrack/cgroup
 TaskPlugin=task/affinity,task/cgroup
 ReturnToService=1
-SlurmctldPidFile=/var/run/slurmctld.pid
-SlurmdPidFile=/var/run/slurmd.pid
-SlurmdSpoolDir=/var/spool/slurmd
-StateSaveLocation=/var/spool/slurmctld
-SlurmctldLogFile=/var/log/slurm/slurmctld.log
-SlurmdLogFile=/var/log/slurm/slurmd.log
 ```
-
-</div>
 
 ::note::
 
@@ -57,8 +47,30 @@ SlurmdLogFile=/var/log/slurm/slurmd.log
   'SlurmctldHost：controller 的短 hostname，與 hostname -s 相同。',
   'AuthType：認證 plugin。SlurmUser：執行 daemon 的帳號。',
   'MailProg：不寄通知信時設為 /bin/true。',
-  'ProctrackType、TaskPlugin：以 cgroup 追蹤與限制 job 的 process。',
-  'ReturnToService=1：因無回應而 DOWN 的節點，重新註冊時自動恢復。其餘為 PID、spool、state 與 log 的路徑。',
+  'cgroup 追蹤與限制 job 的 process；ReturnToService=1 讓因無回應而 DOWN 的節點重新註冊時自動恢復。',
+]" />
+
+---
+layout: textbook
+chapter: Ch 3 · Example Configuration
+ltag: slurm.conf
+---
+
+# slurm.conf：PID、spool 與 log 路徑
+
+```shell
+SlurmctldPidFile=/var/run/slurmctld.pid
+SlurmdPidFile=/var/run/slurmd.pid
+SlurmdSpoolDir=/var/spool/slurmd
+StateSaveLocation=/var/spool/slurmctld
+SlurmctldLogFile=/var/log/slurm/slurmctld.log
+SlurmdLogFile=/var/log/slurm/slurmd.log
+```
+
+::note::
+
+<Note :notes="[
+  '接續上一頁。spool 與 log 目錄即先前以 root 建立並交給 slurm 的目錄。',
 ]" />
 
 ---
@@ -84,7 +96,7 @@ JobAcctGatherType=jobacct_gather/linux
 ::note::
 
 <Note :notes="[
-  '接續上一頁，同一份檔案的中段。',
+  '接續上一頁，同一份檔案的後段。',
   'backfill 讓小 job 利用空檔；cons_tres 讓一台節點同時執行多個 job。',
   '記帳交給 slurm-head 上的 slurmdbd，port 與 slurmdbd.conf 的 DbdPort 相同。',
 ]" />
@@ -93,23 +105,20 @@ JobAcctGatherType=jobacct_gather/linux
 layout: figure
 chapter: Ch 3 · Example Configuration
 ltag: slurm.conf
-takeaway: 硬體欄位以各節點 sudo slurmd -C 的結果為準；debug 是包含所有節點的預設 partition。
+takeaway: 硬體欄位以各節點 sudo slurmd -C 的結果為準；行尾的 \ 表示下一行接續同一筆設定。
 ---
 
 # slurm.conf：節點與 partition
 
-<div class="code-wide">
-
 ```shell
 # COMPUTE NODES
-NodeName=DEFAULT CPUs=4 Boards=1 SocketsPerBoard=1 CoresPerSocket=4 ThreadsPerCore=1 RealMemory=3500 State=UNKNOWN
+NodeName=DEFAULT CPUs=4 Boards=1 SocketsPerBoard=1 CoresPerSocket=4 \
+    ThreadsPerCore=1 RealMemory=3500 State=UNKNOWN
 NodeName=slurm-head NodeAddr=10.1.253.75
 NodeName=slurm-compute NodeAddr=10.1.253.77
 # PARTITIONS
 PartitionName=debug Nodes=ALL Default=YES MaxTime=INFINITE State=UP
 ```
-
-</div>
 
 ---
 layout: textbook

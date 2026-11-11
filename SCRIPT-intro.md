@@ -166,6 +166,7 @@
 講稿：
 
 - 關鍵是 Job C 的長度剛好能在 3h 前結束，所以不會延後 Job B。
+- 最後一步是對照：沒有 backfill 時 Job C 排在 Job B 之後，node03、node04 前 3 小時完全閒置，Job C 也晚了 6 小時才開始。
 - 這也是 Ch 4 要求 --time 估準的原因。
 
 ## 27. Slurm 的主要元件

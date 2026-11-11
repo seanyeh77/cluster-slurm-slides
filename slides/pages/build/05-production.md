@@ -158,18 +158,17 @@ takeaway: Gres=gpu:4 宣告每台 4 張 GPU，還需在 gres.conf 指定裝置�
 
 # 設定 Partition
 
-<div class="code-wide">
-
 ```shell
 GresTypes=gpu
 NodeName=cpu[01-16] CPUs=64 RealMemory=250000
 NodeName=gpu[01-04] CPUs=64 RealMemory=500000 Gres=gpu:4
-PartitionName=debug Nodes=cpu[01-02] MaxTime=00:30:00 DefaultTime=00:10:00 MaxNodes=2 PriorityTier=10 State=UP
-PartitionName=cpu Nodes=cpu[01-16] Default=YES MaxTime=2-00:00:00 DefaultTime=01:00:00 State=UP
-PartitionName=gpu Nodes=gpu[01-04] MaxTime=2-00:00:00 DefaultTime=01:00:00 State=UP
+PartitionName=debug Nodes=cpu[01-02] MaxTime=00:30:00 DefaultTime=00:10:00 \
+    MaxNodes=2 PriorityTier=10 State=UP
+PartitionName=cpu Nodes=cpu[01-16] Default=YES MaxTime=2-00:00:00 \
+    DefaultTime=01:00:00 State=UP
+PartitionName=gpu Nodes=gpu[01-04] MaxTime=2-00:00:00 \
+    DefaultTime=01:00:00 State=UP
 ```
-
-</div>
 
 ---
 layout: reference

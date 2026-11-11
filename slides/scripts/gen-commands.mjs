@@ -100,6 +100,24 @@ const html = `<!DOCTYPE html>
   .file pre { margin: 0; padding: 14px 16px; overflow-x: auto; }
   .file button { position: absolute; top: 10px; right: 10px; }
 </style>
+<script>
+// Viewer's accent from the decks (ui-accent), darkened until text reads 4.5:1, as in the design system.
+(function () {
+  try {
+    var h = (localStorage.getItem('ui-accent') || '').replace(/^#/, '');
+    if (!/^[0-9a-fA-F]{6}$/.test(h)) return;
+    var rgb = function (x) { return [0, 2, 4].map(function (i) { return parseInt(x.substr(i, 2), 16); }); };
+    var hex = function (a) { return a.map(function (v) { return Math.round(v).toString(16).padStart(2, '0'); }).join(''); };
+    var lum = function (a) { var w = [0.2126, 0.7152, 0.0722]; return a.reduce(function (s, v, i) { v /= 255; return s + w[i] * (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); }, 0); };
+    var ok = function (a) { var l = lum(a); return (1.05 / (l + 0.05)) >= 4.5 && ((lum(rgb('fcfbfb')) + 0.05) / (l + 0.05)) >= 4.5; };
+    var base = rgb(h), t = base;
+    for (var k = 1; k * 0.04 <= 1 && !ok(t); k++) t = base.map(function (v) { return v * (1 - k * 0.04); });
+    var s = document.documentElement.style;
+    s.setProperty('--teal', '#' + hex(t));
+    s.setProperty('--soft', '#' + hex(base.map(function (v) { return 255 + (v - 255) * 0.12; })));
+  } catch (e) {}
+})();
+</script>
 </head>
 <body>
 <div class="bar"></div>

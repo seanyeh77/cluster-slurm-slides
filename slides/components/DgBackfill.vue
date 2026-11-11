@@ -1,6 +1,7 @@
 <script setup>
 // Backfill on a node by time chart: A runs, B waits for 4 nodes, C fills the
-// idle gap, D queues after B. Hours are 140 px wide.
+// idle gap, D queues after B. Step 5 is the contrast case without backfill:
+// C waits behind B and node03, node04 stay idle. Hours are 140 px wide.
 defineProps({ captions: Array })
 const X = (h) => 170 + h * 140
 const Y = (r) => r * 92
@@ -10,7 +11,7 @@ const AX = 368
 </script>
 
 <template>
-  <Stepper :steps="4" :captions="captions" :width="1324" v-slot="{ s }">
+  <Stepper :steps="5" :captions="captions" :width="1324" v-slot="{ s }">
     <svg viewBox="-4 -4 1324 418" role="img" aria-label="Backfill scheduling">
       <text v-for="(r, i) in rows" :key="r" x="0" :y="Y(i) + 48" class="m">{{ r }}</text>
       <path :d="`M170 0V${AX}H${X(8)}`" class="ln" />
@@ -22,7 +23,7 @@ const AX = 368
       <rect :x="X(0)" :y="Y(0) + 6" :width="X(3) - X(0)" height="172" class="svc" />
       <text :x="(X(0) + X(3)) / 2" :y="Y(0) + 100" text-anchor="middle" class="b">Job A</text>
 
-      <g class="f" :class="{ off: s >= 3 }">
+      <g class="f" :class="{ off: s >= 3 && s < 5 }">
         <rect :x="X(0)" :y="Y(2) + 6" :width="X(3) - X(0)" height="172" class="idle" />
         <text :x="(X(0) + X(3)) / 2" :y="Y(2) + 100" text-anchor="middle" class="mut">Idle</text>
       </g>
@@ -31,8 +32,8 @@ const AX = 368
         <text :x="(X(3) + X(6)) / 2" :y="Y(2) - 2" text-anchor="middle" class="b">Job B</text>
       </g>
       <g class="f" :class="{ off: s < 3 }">
-        <rect :x="X(0)" :y="Y(2) + 6" :width="X(2) - X(0)" height="172" class="svc" :class="{ hl: s === 3 }" />
-        <text :x="(X(0) + X(2)) / 2" :y="Y(2) + 100" text-anchor="middle" class="b">Job C</text>
+        <rect :x="s === 5 ? X(6) : X(0)" :y="Y(2) + 6" :width="X(2) - X(0)" height="172" class="svc" :class="{ hl: s === 3 || s === 5 }" />
+        <text :x="s === 5 ? (X(6) + X(8)) / 2 : (X(0) + X(2)) / 2" :y="Y(2) + 100" text-anchor="middle" class="b">Job C</text>
       </g>
       <g class="f" :class="{ off: s < 4 }">
         <rect :x="X(6)" :y="Y(0) + 6" :width="X(8) - X(6)" height="172" class="node" />

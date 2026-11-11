@@ -122,7 +122,7 @@ clicks: 3
 ---
 layout: figure
 chapter: Ch 3 · Cluster Software Stack
-clicks: 3
+clicks: 4
 ---
 
 # Backfill 的排程方式
@@ -132,6 +132,7 @@ clicks: 3
   'Job B 需要 4 台 node，必須等 Job A 在 3h 結束後才能開始。',
   'Job C 只需要 2 小時，能在 Job B 開始前完成，因此被 backfill 進空檔。',
   'Job D 排在 Job B 之後執行。',
+  '沒有 backfill 時，Job C 只能排在 Job B 之後，node03、node04 在前 3 小時閒置。',
 ]" />
 
 ---

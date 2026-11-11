@@ -124,19 +124,21 @@ daemon 以 slurm 帳號執行，沒有權限在 `/var/spool`、`/var/log` 底下
 layout: textbook
 chapter: Ch 2 · Installation
 ltag: Terminal
-clicks: 2
+clicks: 3
 ---
 
 # 讓 /run/slurmdbd 在開機時自動建立
 
-<TerminalTyping :keep="2" :cmds="[
-  { c: 'echo \'d /run/slurmdbd 0755 slurm slurm -\' | sudo tee /etc/tmpfiles.d/slurmdbd.conf', o: 'd /run/slurmdbd 0755 slurm slurm -' },
+<TerminalTyping :keep="3" :cmds="[
+  { c: 'cd /etc/tmpfiles.d', to: '/etc/tmpfiles.d' },
+  { c: 'echo \'d /run/slurmdbd 0755 slurm slurm -\' | sudo tee slurmdbd.conf', o: 'd /run/slurmdbd 0755 slurm slurm -' },
   { c: 'sudo systemd-tmpfiles --create' },
 ]" />
 
 ::note::
 
 <Note :notes="[
+  '',
   '',
   '/run 重開機時會清空，以 tmpfiles 設定每次開機時建立。',
   '立即依設定建立目錄。',

@@ -35,4 +35,6 @@ npm run tokens      # 從 ui-design-system 更新 styles/tokens.css
 
 配色與字型來自 [seanyeh77/ui-design-system](https://github.com/seanyeh77/ui-design-system) 的 `teaching` preset：暖灰中性色、Inter 加思源黑體、Geist Mono，搭配青綠強調色 `#0f766e`、直角與細線邊框。樣式只讀 token 名稱；token 同時固定在 `body, #app`，外層頁面設成深色主題時仍維持淺色。GitHub Actions 每次建置前會取得最新的 `tokens.css`。
 
+強調色可以自行調整：導覽列最右邊的色點會開啟選色面板，提供 ui-design-system 的 8 個推薦色與色碼欄位，預設為 `#0f766e`。選擇存在 localStorage 的 `ui-accent`（與 ui-design-system 共用），hover、淺底與文字色依 ui-design-system 的換算推導，選很淺的顏色時文字會自動加深到 4.5:1。實作在 `custom-nav-controls.vue` 與 `utils/accent.ts`；首頁與指令清單也會套用同一個顏色。
+
 push 到 main 且 `slides/` 有變動時，GitHub Actions 會建置兩份簡報並部署到 GitHub Pages。
