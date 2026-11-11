@@ -94,12 +94,32 @@ const live = computed(
 watch(live, on => {
   if (!on) ready.value = false;
 });
+
+// If the animation has not reported back a few seconds after the iframe appears
+// (slow network, a request that stalled), load it once more instead of leaving a
+// blank frame.
+const attempt = ref(0);
+let retry: ReturnType<typeof setTimeout> | undefined;
+watch(
+  [live, attempt],
+  ([on]) => {
+    clearTimeout(retry);
+    if (on)
+      retry = setTimeout(() => {
+        if (!ready.value && attempt.value < 2) attempt.value++;
+      }, 6000);
+  },
+  {immediate: true},
+);
+watch(ready, r => r && clearTimeout(retry));
+onBeforeUnmount(() => clearTimeout(retry));
 </script>
 
 <template>
   <div class="motion-canvas">
     <iframe
       v-if="live"
+      :key="attempt"
       ref="frame"
       :src="url"
       tabindex="-1"

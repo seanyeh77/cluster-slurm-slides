@@ -260,7 +260,7 @@ clicks: 1
 ---
 layout: quiz
 chapter: Ch 4 · Submit Your First Job
-question: Q2．第 8 行改成不加 srun 的 hostname，會輸出幾行？
+question: Q2．step 0 的 srun hostname 拿掉 srun，會輸出幾行？
 clicks: 1
 answer: 1
 options:
@@ -269,7 +269,7 @@ options:
   - 0 行：沒有 srun 就不會執行
 ---
 
-沒有 srun 的指令和第 7 行一樣，只在 batch host 執行一次，另一台 node 完全沒有用到。要在所有分配到的 node 上執行，必須透過 srun。
+拿掉 srun 的 hostname 和 script 開頭那一行 hostname 一樣，只在 batch host 執行一次，另一台 node 完全沒有用到。要在所有分配到的 node 上執行，必須透過 srun。
 
 ---
 layout: textbook
@@ -290,7 +290,7 @@ wait
 
 <Note :notes="[
   './a.out：gcc 編譯時未指定檔名所產生的執行檔，./ 表示目前目錄。',
-  '每個 srun 都寫明只使用多少資源，否則第一個 step 會用滿整塊 allocation。',
+  '--exact：step 只使用 -n 要求的資源，其餘 CPU 留給其他 step；結尾的 & 讓它在背景執行，兩個 step 才能同時跑。',
   'wait：等待所有背景執行的 step 結束。',
 ]" />
 

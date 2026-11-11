@@ -355,11 +355,12 @@
 
 - 44.batch 是 script 本身，44.0 與 44.1 是兩個 step，CPU 數與上一張圖一致。
 
-## 44. Q2．第 8 行改成不加 srun 的 hostname，會輸出幾行？
+## 44. Q2．step 0 的 srun hostname 拿掉 srun，會輸出幾行？
 
 講稿：
 
-- 舉手表決後再公布答案。可以對照 steps.sh 的輸出：第 1 行就是沒有 srun 的 hostname。
+- 題目指的是 steps.sh 裡 step 0 那一行 srun hostname，必要時翻回前一張指給大家看。
+- 舉手表決後再公布答案。可以對照 steps.sh 的輸出：最上面那一行就是 script 開頭沒有 srun 的 hostname。
 - 沒有 srun 的程式只會用到一台 node；程式「有跑」，所以不容易察覺。
 
 ## 45. 在同一個 allocation 中同時執行多個 step
@@ -367,13 +368,14 @@
 筆記：
 
 - （進入投影片）./a.out：gcc 編譯時未指定檔名所產生的執行檔，./ 表示目前目錄。
-- （1）每個 srun 都寫明只使用多少資源，否則第一個 step 會用滿整塊 allocation。
+- （1）--exact：step 只使用 -n 要求的資源，其餘 CPU 留給其他 step；結尾的 & 讓它在背景執行，兩個 step 才能同時跑。
 - （2）wait：等待所有背景執行的 step 結束。
 
 講稿：
 
 - 先說明 ./a.out：用 gcc 編譯 C 程式、沒有以 -o 指定檔名時，執行檔預設叫 a.out；./ 表示執行目前目錄裡的這個檔案。換成任何自己的程式都一樣。
-- --exact 讓每個 step 只拿自己要求的資源，最後的 wait 等所有背景 step 結束。
+- --exact 讓每個 step 只拿 -n 指定的資源。不加的話，step 會拿走分配到的 node 上所有 CPU，第二個 step 只能等第一個結束，就變回依序執行。
+- 每行結尾的 & 讓 srun 在背景執行，shell 不等它結束就繼續下一行；最後的 wait 等所有背景 step 結束，否則 script 一結束 job 就結束，step 也會被中止。
 
 ## 46. 以 dependency 串接 job
 
