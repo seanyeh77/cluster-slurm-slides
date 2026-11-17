@@ -77,7 +77,7 @@ const html = `<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   /* Values of the ui-design-system "teaching" preset */
-  :root { --ink:#171512; --mut:#6d645a; --teal:#0f766e; --rule:#e2dfdc; --code:#f6f5f4; }
+  :root { --ink:#171512; --mut:#6d645a; --teal:#0e7f7a; --rule:#e2dfdc; --code:#f6f5f4; }
   * { box-sizing: border-box; }
   body { margin: 0; background: #fcfbfb; color: var(--ink); font-family: Inter, "Noto Sans TC", sans-serif; font-size: 17px; line-height: 1.6; }
   .bar { height: 5px; background: var(--teal); }

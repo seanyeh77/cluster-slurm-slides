@@ -113,13 +113,25 @@ watch(
 );
 watch(ready, r => r && clearTimeout(retry));
 onBeforeUnmount(() => clearTimeout(retry));
+
+// The animation reads the viewer's accent (ui-accent) when it loads. When the viewer picks
+// another color in the deck (accent.ts fires 'ui-accent-change'), reload it so the
+// highlighted element follows; it returns to the current step on its own.
+const recolor = ref(0);
+const onAccent = () => {
+  if (!live.value) return;
+  ready.value = false;
+  recolor.value++;
+};
+onMounted(() => window.addEventListener('ui-accent-change', onAccent));
+onBeforeUnmount(() => window.removeEventListener('ui-accent-change', onAccent));
 </script>
 
 <template>
   <div class="motion-canvas">
     <iframe
       v-if="live"
-      :key="attempt"
+      :key="`${attempt}-${recolor}`"
       ref="frame"
       :src="url"
       tabindex="-1"

@@ -1,9 +1,16 @@
-// Viewer-chosen accent color, following setAccent() in seanyeh77/ui-design-system
-// (packages/ui/src/theme.ts): same storage key, presets and derivation, so a light
-// accent never makes text unreadable.
+// Viewer-chosen accent color for a Slidev deck, following setAccent() in
+// seanyeh77/ui-design-system (packages/ui/src/theme.ts): same storage key, presets and
+// derivation, so a light accent never makes text unreadable.
+//
+// Copy to the deck's utils/accent.ts. setup/main.ts calls applyAccent(storedAccent(), true)
+// once; custom-nav-controls.vue is the picker. applyAccent() also fires a
+// 'ui-accent-change' event on window so other parts of the deck (MotionCanvas.vue)
+// can follow the new color.
 
 export const ACCENT_KEY = 'ui-accent'
-export const DEFAULT_ACCENT = '#0f766e' // teaching preset default
+/** The deck's default: 青 #0f8a85 for the teaching theme, 藍 #2457d6 for the UI variant.
+ *  It must be one of PRESETS, so a viewer can always pick it again. */
+export const DEFAULT_ACCENT = '#0f8a85'
 
 // The design system's 8 recommended swatches (AccentPicker).
 export const PRESETS: [string, string][] = [
@@ -69,6 +76,7 @@ export function storedAccent(): string {
 export function applyAccent(hex: string, quiet = false) {
   const h = normalize(hex)
   if (!h || typeof document === 'undefined') return
+  // Light-theme neutrals of the teaching preset (bg, surface, ink).
   const bg = '#fcfbfb'
   const surface = '#ffffff'
   const ink = '#171512'
@@ -90,5 +98,6 @@ export function applyAccent(hex: string, quiet = false) {
     try {
       localStorage.setItem(ACCENT_KEY, h)
     } catch {}
+    window.dispatchEvent(new CustomEvent('ui-accent-change', { detail: h }))
   }
 }

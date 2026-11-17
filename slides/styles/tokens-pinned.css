@@ -9,6 +9,10 @@ body, #app {
   --ink-muted: #6d645a;
   --line: #e2dfdc;
   --line-strong: #8c8073;
+  --graph-edge: #8c8073;
+  --graph-node: #f6f5f4;
+  --code-keyword: #2457d6;
+  --code-constant: #0b7a6b;
   --accent: #2457d6;
   --accent-hover: #204dbc;
   --accent-press: #1c44a7;
@@ -27,6 +31,21 @@ body, #app {
   --danger-soft: #faeae9;
   --info-text: #193d96;
   --info-soft: #e9eefb;
+  --on-solid: #ffffff;
+  --danger-ring: rgba(205, 40, 35, 0.25);
+  --mark: #fde68a;
+  --scrim: rgba(0, 0, 0, 0.2);
+  --scrim-strong: rgba(0, 0, 0, 0.55);
+  --edge-shadow: rgba(0, 0, 0, 0.18);
+  --file-other: #6d645a;
+  --file-pdf: #cd2823;
+  --file-video: #7a4fd6;
+  --file-audio: #b0368a;
+  --file-slides: #c4600f;
+  --file-doc: #2457d6;
+  --file-sheet: #1d7a45;
+  --file-image: #0f7480;
+  --file-code: #3d4552;
   --neutral-0: #fcfbfb;
   --neutral-50: #f6f5f4;
   --neutral-100: #eeecea;
@@ -76,13 +95,14 @@ body, #app {
   --font-mono: "Geist Mono", "Noto Sans TC", ui-monospace, monospace;
 
   /* teaching preset */
-  --accent: #0f766e;
-  --accent-hover: #0d6861;
-  --accent-press: #0c5c56;
-  --accent-text: #0f766e;
-  --accent-soft: #e2efee;
-  --focus-ring: rgba(15, 118, 110, 0.3);
-  --chart-1: #0f766e;
+  --accent: #0f8a85;
+  --accent-hover: #0d7975;
+  --accent-press: #0c6c68;
+  --accent-text: #0e7f7a;
+  --accent-soft: #e2f1f0;
+  --on-accent: #171512;
+  --focus-ring: rgba(15, 138, 133, 0.3);
+  --chart-1: #0f8a85;
   --radius-sm: 0px;
   --radius-chip: 0px;
   --radius-md: 0px;

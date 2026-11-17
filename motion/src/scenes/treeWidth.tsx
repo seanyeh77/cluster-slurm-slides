@@ -94,6 +94,6 @@ export default makeScene2D(function* (view) {
       arrows[1], arrows[2], forwardLabels[1], forwardLabels[2]], 0.3),
     delay(0.3, arrows[0].points([[960, TOP + CTLD.h], [960, barY(2)]], 0.5, easeInOutCubic)),
     delay(0.3, forwardLabels[0].y((TOP + CTLD.h + barY(2)) / 2, 0.5, easeInOutCubic)),
-    delay(0.3, all(sentLabel.fill(COLOR.accent, 0.3), sent(4096, 1.2, easeInOutCubic))),
+    delay(0.3, all(sentLabel.fill(COLOR.accentText, 0.3), sent(4096, 1.2, easeInOutCubic))),
   );
 });

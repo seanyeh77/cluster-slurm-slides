@@ -1,7 +1,10 @@
 <script setup lang="ts">
 // Accent picker at the right end of the Slidev nav bar (teaching-materials-style, Setup).
+// Copy to the deck root as custom-nav-controls.vue (Slidev renders it in the nav bar) with
+// utils/accent.ts next to it.
 // The dot is a focusable div, not a <button>: Slidev turns its arrow-key shortcuts off while
 // a button has focus, and Esc returns focus to the dot.
+// Square swatches, no shadow, 1.5 px borders: the teaching preset has radius 0 and no shadows.
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { DEFAULT_ACCENT, PRESETS, applyAccent, normalize, storedAccent } from './utils/accent'
 
@@ -166,7 +169,7 @@ onBeforeUnmount(() => close(false))
           >
         </div>
         <div id="acp-hint" class="acp-hint" :class="{ bad }">
-          {{ bad ? '色碼格式不正確：需要 6 個 0 到 9 或 a 到 f 的字元，例如 0f766e' : '輸入 6 碼色碼，可省略 #；預設 0f766e' }}
+          {{ bad ? '色碼格式不正確：需要 6 個 0 到 9 或 a 到 f 的字元，例如 0f8a85' : '輸入 6 碼色碼，可省略 #' }}
         </div>
       </div>
     </Teleport>
